@@ -1,6 +1,9 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
+import loadFontAwsoneIcons from './core/font-awsome';
+
+loadFontAwsoneIcons();
 
 function App() {
   return (
