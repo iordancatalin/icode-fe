@@ -1,0 +1,104 @@
+.header__container {
+  display: flex;
+}
+
+.header__content-panel {
+  flex: 1;
+}
+
+.header__file-details {
+  display: grid;
+  grid-template-columns: 1fr 10fr;
+  grid-template-rows: 1fr 1fr;
+  grid-template-areas:
+    'icon name'
+    'icon author';
+}
+
+.header__file-icon {
+  grid-area: icon;
+  align-self: center;
+  justify-self: center;
+}
+
+.header__file-name {
+  grid-area: name;
+  align-self: end;
+}
+
+.header__file-name input[type='text'] {
+  border: 0;
+  outline: none;
+  border: 1px solid;
+  border-color: transparent;
+  background-color: transparent;
+}
+
+.header__file-name input[type='text']:focus {
+  border-color: #fff;
+}
+
+.header__file-author {
+  grid-area: author;
+  font-size: 12px;
+}
+
+.header__file-author span {
+  color: #9d9d9d;
+}
+
+.header__run-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.header__btn-run {
+  border: 0;
+  background-color: #37a455;
+  font-size: 1.4rem;
+  border-radius: 2px;
+}
+
+.header__btn-run:focus {
+  outline: none;
+}
+
+.header__user-container {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.header__user-container .sign-in-text {
+  font-size: 14px;
+}
+
+.header__user-avatar {
+  height: 45px;
+  width: 45px;
+  border: 1px solid #fff;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.header__user-options {
+  position: absolute;
+  right: 0px;
+  min-width: 200px;
+  bottom: -9rem;
+  background-color: #333333;
+}
+
+.header__user-options ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.header__user-options ul li {
+  cursor: pointer;
+}
+
+.header__user-options ul li:hover {
+  background-color: #e94560;
+}
