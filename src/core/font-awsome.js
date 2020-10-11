@@ -1,6 +1,20 @@
 import { library } from '@fortawesome/fontawesome-svg-core';
-import { faUser } from '@fortawesome/free-solid-svg-icons';
+import {
+  faBell,
+  faCog,
+  faFileAlt,
+  faHome,
+  faPlay,
+  faSignOutAlt,
+  faUser,
+} from '@fortawesome/free-solid-svg-icons';
 
 export default () => {
+  library.add(faFileAlt);
+  library.add(faPlay);
   library.add(faUser);
+  library.add(faBell);
+  library.add(faCog);
+  library.add(faSignOutAlt);
+  library.add(faHome);
 };
