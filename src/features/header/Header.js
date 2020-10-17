@@ -41,7 +41,7 @@ export default function Header() {
         </div>
       </div>
       <div className='header__content-panel header__run-container'>
-        <button className='header__btn-run py-2 px-3 text-white'>
+        <button className='header__btn-run py-2 px-4 text-white'>
           <FontAwesomeIcon icon='play' />
           <span className='ml-3'>Run</span>
         </button>

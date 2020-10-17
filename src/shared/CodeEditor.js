@@ -1,7 +1,22 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Editor from '@monaco-editor/react';
-import React from 'react';
-import styled from 'styled-components';
+import React, { useEffect, useRef, useState } from 'react';
+import styled, { css } from 'styled-components';
+
+const EditorContainer = styled.div`
+  height: ${(props) => props.height};
+  width: ${(props) => props.width};
+  ${({ maximized }) =>
+    maximized &&
+    css`
+      position: fixed;
+      left: 0;
+      top: 0;
+      z-index: 2;
+      width: 100vw !important;
+      height: 100vh !important;
+    `}
+`;
 
 const EditorHeader = styled.div.attrs(() => ({
   className: 'p-2 font-montserrat',
@@ -13,7 +28,7 @@ const EditorHeader = styled.div.attrs(() => ({
   border-bottom: 1px solid #4a4545;
 `;
 
-const MximizeComponent = styled.button.attrs(() => ({
+const ToggleMaximizeButton = styled.button.attrs(() => ({
   className: 'border-0 bg-transparent',
 }))`
   color: #6c757d;
@@ -29,22 +44,52 @@ const MximizeComponent = styled.button.attrs(() => ({
 `;
 
 export default function CodeEditor({ title, language, value }) {
+  const [maximized, setMaximized] = useState(false);
+  const [width, setWidth] = useState('100%');
+  const [height, setHeight] = useState('100%');
+
+  const editorRef = useRef(null);
+  const editorContainerRef = useRef(null);
+
+  useEffect(() => {
+    if (editorContainerRef.current) {
+      const {width, height} = editorContainerRef.current.getBoundingClientRect();
+      setWidth(`${width}px`);
+      setHeight(`${height}px`);
+    }
+  }, []);
+
+  const handleEditorDidMount = (_, monacoEditor) =>
+    (editorRef.current = monacoEditor);
+
+  const handleToggleMaximizeClick = () => {
+    setTimeout(() => editorRef.current.layout(), 0);
+    setMaximized((prevState) => !prevState);
+  };
+
   return (
-    <div className='h-100'>
+    <EditorContainer
+      maximized={maximized}
+      ref={editorContainerRef}
+      width={width}
+      height={height}
+    >
       <EditorHeader>
         {title}
         <div className='flex-grow-1 d-flex justify-content-end'>
-          <MximizeComponent>
+          <ToggleMaximizeButton onClick={handleToggleMaximizeClick}>
             <FontAwesomeIcon icon='window-maximize'></FontAwesomeIcon>
-          </MximizeComponent>
+          </ToggleMaximizeButton>
         </div>
       </EditorHeader>
       <Editor
         language={language}
         theme='dark'
         value={value}
-        height='calc(100% - 3rem)'
+        width='100%'
+        height='calc(100% - 2.5rem)'
+        editorDidMount={handleEditorDidMount}
       ></Editor>
-    </div>
+    </EditorContainer>
   );
 }
