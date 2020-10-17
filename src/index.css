@@ -12,3 +12,7 @@ body {
 * {
   box-sizing: border-box !important;
 }
+
+.slider-mouseover[role='presentation'] {
+  display: none;
+}

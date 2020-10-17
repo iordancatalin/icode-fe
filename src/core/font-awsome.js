@@ -7,6 +7,7 @@ import {
   faPlay,
   faSignOutAlt,
   faUser,
+  faWindowMaximize,
 } from '@fortawesome/free-solid-svg-icons';
 
 export default () => {
@@ -17,4 +18,5 @@ export default () => {
   library.add(faCog);
   library.add(faSignOutAlt);
   library.add(faHome);
+  library.add(faWindowMaximize);
 };

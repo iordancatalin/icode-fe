@@ -50,7 +50,7 @@
 .header__run-container {
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
 }
 
 .header__btn-run {
