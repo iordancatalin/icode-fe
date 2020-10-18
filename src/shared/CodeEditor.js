@@ -43,24 +43,37 @@ const ToggleMaximizeButton = styled.button.attrs(() => ({
   }
 `;
 
-export default function CodeEditor({ title, language, value }) {
+export default function CodeEditor({ title, language, valueRef, onExecution }) {
   const [maximized, setMaximized] = useState(false);
   const [width, setWidth] = useState('100%');
   const [height, setHeight] = useState('100%');
 
-  const editorRef = useRef(null);
-  const editorContainerRef = useRef(null);
+  const editorRef = useRef();
+  const editorContainerRef = useRef();
+
+  const timeoutId = useRef();
+  const valueGetter = useRef();
 
   useEffect(() => {
     if (editorContainerRef.current) {
-      const {width, height} = editorContainerRef.current.getBoundingClientRect();
+      const { width, height, } = editorContainerRef.current.getBoundingClientRect();
       setWidth(`${width}px`);
       setHeight(`${height}px`);
     }
   }, []);
 
-  const handleEditorDidMount = (_, monacoEditor) =>
-    (editorRef.current = monacoEditor);
+  const handleEditorDidMount = (_valueGetter, _monacoEditor) =>{
+    editorRef.current = _monacoEditor;
+    valueGetter.current = _valueGetter;
+
+    editorRef.current.onDidChangeModelContent(() => {
+      valueRef.current = valueGetter.current();
+
+      if(timeoutId.current) { clearTimeout(timeoutId.current) }
+      const executionEvent = { type: 'execution', changed: title, };
+      timeoutId.current = setTimeout(() => onExecution(executionEvent), 1000);
+    })
+  };
 
   const handleToggleMaximizeClick = () => {
     setTimeout(() => editorRef.current.layout(), 0);
@@ -85,7 +98,7 @@ export default function CodeEditor({ title, language, value }) {
       <Editor
         language={language}
         theme='dark'
-        value={value}
+        value={valueRef.current}
         width='100%'
         height='calc(100% - 2.5rem)'
         editorDidMount={handleEditorDidMount}
