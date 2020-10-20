@@ -39,6 +39,7 @@ export default function ICode() {
 
   const layoutContainerRef = useRef();
   const timeoutId = useRef();
+  const iframeRef = useRef();
 
   const createRequestBody = () => ({
     html: htmlValueRef.current,
@@ -52,7 +53,12 @@ export default function ICode() {
     const responseBody = await response.json();
 
     if (responseBody?.endpoint) {
-      setOutputEndpoint(responseBody.endpoint);
+      const timestamp = Date.now();
+      setOutputEndpoint(`${responseBody.endpoint}?timestamp=${timestamp}`);
+    }
+
+    if (responseBody?.workingDirectory) {
+      sessionStorage.setItem('x-wrk-directory', responseBody.workingDirectory);
     }
   }, []);
 
@@ -60,7 +66,8 @@ export default function ICode() {
     <iframe
       className='h-100 w-100 border-0 bg-white'
       src={outputEndpoint}
-      title='Execution Result'
+      title='Execution result'
+      ref={iframeRef}
     ></iframe>
   ) : (
     <div className='d-flex h-100 w-100 justify-content-center align-items-center text-secondary bkg-secondary'>
@@ -81,11 +88,16 @@ export default function ICode() {
       const editorHeight = (layoutHeight - 2 * GRID_GAP) / 3;
 
       return { width: editorWidth, height: editorHeight };
-    }, [layout]);
+    },
+    [layout]
+  );
 
   const resetEditorDimension = useCallback(() => {
     if (layoutContainerRef.current) {
-      const { width, height, } = layoutContainerRef.current.getBoundingClientRect();
+      const {
+        width,
+        height,
+      } = layoutContainerRef.current.getBoundingClientRect();
 
       const newDimension = calculateEditorDimension(width, height);
       setEditorDimension(newDimension);
@@ -93,7 +105,9 @@ export default function ICode() {
   }, [calculateEditorDimension]);
 
   const handleWindowResize = useCallback(() => {
-    if (timeoutId.current) { clearTimeout(timeoutId.current); }
+    if (timeoutId.current) {
+      clearTimeout(timeoutId.current);
+    }
     timeoutId.current = setTimeout(() => resetEditorDimension(), 100);
   }, [resetEditorDimension]);
 
@@ -102,7 +116,9 @@ export default function ICode() {
     window.onresize = handleWindowResize;
   }, [layout, handleWindowResize, resetEditorDimension]);
 
-  useEffect(() => { handleExecution(); }, [handleExecution]);
+  useEffect(() => {
+    handleExecution();
+  }, [handleExecution]);
 
   return (
     <ICodeLayoutComponent layoutType={layout} ref={layoutContainerRef}>
