@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import AuthUserOptions from './AuthUserOptions';
 import './Header.css';
+import LayoutSelectorComponent from './LayoutSelectorComponent';
 
 const isUserLogged = false;
 
@@ -19,8 +20,11 @@ const createUserPanelForUnAuthenticateUser = () => (
 export default function Header() {
   const [fileName, setFileName] = useState(`Untitled`);
 
-  const userPanelElement = isUserLogged ? <AuthUserOptions/>
-    : createUserPanelForUnAuthenticateUser();
+  const userPanelElement = isUserLogged ? (
+    <AuthUserOptions />
+  ) : (
+    createUserPanelForUnAuthenticateUser()
+  );
 
   return (
     <div className='header__container p-1'>
@@ -40,11 +44,8 @@ export default function Header() {
           <span>by</span> <span className='text-white'>Anonymous Joker</span>
         </div>
       </div>
-      <div className='header__content-panel header__run-container'>
-        <button className='header__btn-run py-2 px-4 text-white'>
-          <FontAwesomeIcon icon='play' />
-          <span className='ml-3'>Run</span>
-        </button>
+      <div className='header__content-panel d-flex justify-content-center p-2'>
+        <LayoutSelectorComponent />
       </div>
       <div className='header__content-panel header__user-container text-white'>
         {userPanelElement}
