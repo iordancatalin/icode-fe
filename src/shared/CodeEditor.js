@@ -4,6 +4,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import styled, { css } from 'styled-components';
 
 const EditorContainer = styled.div`
+  overflow: hidden;
   height: ${(props) => props.height};
   width: ${(props) => props.width};
   ${({ maximized }) =>
@@ -43,10 +44,18 @@ const ToggleMaximizeButton = styled.button.attrs(() => ({
   }
 `;
 
-export default function CodeEditor({ title, language, valueRef, onExecution }) {
+export default function CodeEditor({
+  title,
+  language,
+  valueRef,
+  onExecution,
+  dimension,
+}) {
   const [maximized, setMaximized] = useState(false);
-  const [width, setWidth] = useState('100%');
-  const [height, setHeight] = useState('100%');
+  const [editorDimension, setEditorDimension] = useState({
+    width: '100%',
+    height: '100%',
+  });
 
   const editorRef = useRef();
   const editorContainerRef = useRef();
@@ -55,24 +64,38 @@ export default function CodeEditor({ title, language, valueRef, onExecution }) {
   const valueGetter = useRef();
 
   useEffect(() => {
-    if (editorContainerRef.current) {
-      const { width, height, } = editorContainerRef.current.getBoundingClientRect();
-      setWidth(`${width}px`);
-      setHeight(`${height}px`);
-    }
-  }, []);
+    const calculateEditorDimension = () => {
+      if (dimension) {
+        return {
+          width: `${dimension.width}px`,
+          height: `${dimension.height}px`,
+        };
+      } else if (editorContainerRef.current) {
+        const { width, height, } = editorContainerRef.current.getBoundingClientRect();
+        return { width: `${width}px`, height: `${height}px` };
+      }
+  
+      return { width: '100%', height: '100%' };
+    };
 
-  const handleEditorDidMount = (_valueGetter, _monacoEditor) =>{
+    if (editorRef.current) setTimeout(() => editorRef.current.layout(), 0);
+
+    const newEditorDimension = calculateEditorDimension();
+    setEditorDimension(newEditorDimension);
+  }, [dimension]);
+
+  const handleEditorDidMount = (_valueGetter, _monacoEditor) => {
     editorRef.current = _monacoEditor;
     valueGetter.current = _valueGetter;
 
     editorRef.current.onDidChangeModelContent(() => {
       valueRef.current = valueGetter.current();
 
-      if(timeoutId.current) { clearTimeout(timeoutId.current) }
-      const executionEvent = { type: 'execution', changed: title, };
+      if (timeoutId.current) { clearTimeout(timeoutId.current); }
+
+      const executionEvent = { type: 'execution', changed: title };
       timeoutId.current = setTimeout(() => onExecution(executionEvent), 1000);
-    })
+    });
   };
 
   const handleToggleMaximizeClick = () => {
@@ -84,8 +107,8 @@ export default function CodeEditor({ title, language, valueRef, onExecution }) {
     <EditorContainer
       maximized={maximized}
       ref={editorContainerRef}
-      width={width}
-      height={height}
+      width={editorDimension.width}
+      height={editorDimension.height}
     >
       <EditorHeader>
         {title}

@@ -47,23 +47,6 @@
   color: #9d9d9d;
 }
 
-.header__run-container {
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
-}
-
-.header__btn-run {
-  border: 0;
-  background-color: #37a455;
-  font-size: 1.4rem;
-  border-radius: 2px;
-}
-
-.header__btn-run:focus {
-  outline: none;
-}
-
 .header__user-container {
   display: flex;
   justify-content: flex-end;
