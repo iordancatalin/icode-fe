@@ -9,7 +9,7 @@ import {
   LAYOUT_TYPE_2,
 } from '../../core/constants';
 import { LayoutContext } from '../../core/contexts/LayoutContext';
-import CodeEditor from '../../shared/CodeEditor';
+import CodeEditorComponent from '../../shared/CodeEditorComponent';
 import GridAreaComponent from '../../shared/GridAreaComponent';
 import LayoutComponent from '../../shared/LayoutComponent';
 import { executeCode } from './ICodeService';
@@ -123,31 +123,31 @@ export default function ICode() {
   return (
     <ICodeLayoutComponent layoutType={layout} ref={layoutContainerRef}>
       <GridAreaComponent areaName='html'>
-        <CodeEditor
+        <CodeEditorComponent
           title={HTML_CONFIG.editorTitle}
           language={HTML_CONFIG.language}
           valueRef={htmlValueRef}
           onExecution={handleExecution}
           dimension={editorDimension}
-        ></CodeEditor>
+        ></CodeEditorComponent>
       </GridAreaComponent>
       <GridAreaComponent areaName='css'>
-        <CodeEditor
+        <CodeEditorComponent
           title={CSS_CONFIG.editorTitle}
           language={CSS_CONFIG.language}
           valueRef={cssValueRef}
           onExecution={handleExecution}
           dimension={editorDimension}
-        ></CodeEditor>
+        ></CodeEditorComponent>
       </GridAreaComponent>
       <GridAreaComponent areaName='js'>
-        <CodeEditor
+        <CodeEditorComponent
           title={JS_CONFIG.editorTitle}
           language={JS_CONFIG.language}
           valueRef={jsValueRef}
           onExecution={handleExecution}
           dimension={editorDimension}
-        ></CodeEditor>
+        ></CodeEditorComponent>
       </GridAreaComponent>
       <GridAreaComponent areaName='output'>{contentElement}</GridAreaComponent>
     </ICodeLayoutComponent>

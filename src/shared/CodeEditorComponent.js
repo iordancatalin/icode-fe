@@ -44,7 +44,7 @@ const ToggleMaximizeButton = styled.button.attrs(() => ({
   }
 `;
 
-export default function CodeEditor({
+export default function CodeEditorComponent({
   title,
   language,
   valueRef,

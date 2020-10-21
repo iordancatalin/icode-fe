@@ -4,7 +4,7 @@ import './App.css';
 import { LayoutContextProviver } from './core/contexts/LayoutContext';
 import loadFontAwsoneIcons from './core/font-awsome';
 import ICode from './features/code/ICode';
-import Header from './features/header/Header';
+import HeaderComponent from './features/header/HeaderComponent';
 
 loadFontAwsoneIcons();
 
@@ -13,7 +13,7 @@ function App() {
     <BrowserRouter>
       <LayoutContextProviver>
         <div className='app__container p-2'>
-          <Header></Header>
+          <HeaderComponent />
 
           <div className='d-flex flex-grow-1'>
             <Switch>
