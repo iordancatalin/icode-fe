@@ -1,6 +1,0 @@
-.app__container {
-  min-height: 100vh;
-  background-color: #343a40;
-  display: flex;
-  flex-direction: column;
-}
