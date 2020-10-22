@@ -21,7 +21,7 @@ const UserOptionsComponent = styled.div.attrs(() => ({
       cursor: pointer;
 
       &:hover {
-        background-color: #e94560;
+        background-color: #d64f65;
       }
     }
   }

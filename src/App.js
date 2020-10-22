@@ -1,6 +1,6 @@
 import React from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
-import './App.css';
+import styled from 'styled-components';
 import { LayoutContextProviver } from './core/contexts/LayoutContext';
 import loadFontAwsoneIcons from './core/font-awsome';
 import ICode from './features/code/ICode';
@@ -8,11 +8,20 @@ import HeaderComponent from './features/header/HeaderComponent';
 
 loadFontAwsoneIcons();
 
+const AppContainer = styled.div.attrs(() => ({
+  className: 'p-2',
+}))`
+  min-height: 100vh;
+  background-color: #343a40;
+  display: flex;
+  flex-direction: column;
+`;
+
 function App() {
   return (
     <BrowserRouter>
       <LayoutContextProviver>
-        <div className='app__container p-2'>
+        <AppContainer>
           <HeaderComponent />
 
           <div className='d-flex flex-grow-1'>
@@ -22,7 +31,7 @@ function App() {
               </Route>
             </Switch>
           </div>
-        </div>
+        </AppContainer>
       </LayoutContextProviver>
     </BrowserRouter>
   );
