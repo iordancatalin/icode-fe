@@ -3,7 +3,7 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import styled from 'styled-components';
 import { LayoutContextProviver } from './core/contexts/LayoutContext';
 import loadFontAwsoneIcons from './core/font-awsome';
-import ICode from './features/code/ICode';
+import DevelopmentComponent from './features/development/DevelopmentComponent';
 import HeaderComponent from './features/header/HeaderComponent';
 
 loadFontAwsoneIcons();
@@ -27,7 +27,7 @@ function App() {
           <div className='d-flex flex-grow-1'>
             <Switch>
               <Route path='/'>
-                <ICode></ICode>
+                <DevelopmentComponent></DevelopmentComponent>
               </Route>
             </Switch>
           </div>

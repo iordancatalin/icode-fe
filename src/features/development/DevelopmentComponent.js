@@ -12,7 +12,7 @@ import { LayoutContext } from '../../core/contexts/LayoutContext';
 import CodeEditorComponent from '../../shared/CodeEditorComponent';
 import GridAreaComponent from '../../shared/GridAreaComponent';
 import LayoutComponent from '../../shared/LayoutComponent';
-import { executeCode } from './ICodeService';
+import { executeCode } from './development-service';
 
 const GRID_GAP = 10;
 
@@ -28,7 +28,7 @@ const ICodeLayoutComponent = styled(LayoutComponent).attrs(() => ({
   flex: 1;
 `;
 
-export default function ICode() {
+export default function DevelopmentComponent() {
   const [outputEndpoint, setOutputEndpoint] = useState();
   const [editorDimension, setEditorDimension] = useState();
   const [layout] = useContext(LayoutContext);
