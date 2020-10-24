@@ -17,3 +17,11 @@ body {
 .slider-mouseover[role='presentation'] {
   display: none;
 }
+
+.justify-self-center {
+  justify-self: center;
+}
+
+.justify-self-end {
+  justify-self: end;
+}

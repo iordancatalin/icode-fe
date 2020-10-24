@@ -21,7 +21,7 @@ const LayoutButton = styled.button.attrs(() => ({
   ${({ active }) =>
     active &&
     css`
-      background-color: #d64f65;
+      background-color: #dd5c71;
     `}
 
   &:focus {

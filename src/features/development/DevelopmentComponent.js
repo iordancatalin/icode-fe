@@ -17,15 +17,16 @@ import { executeCode } from './development-service';
 const GRID_GAP = 10;
 
 const ICodeLayoutComponent = styled(LayoutComponent).attrs(() => ({
-  className: `px-2`,
+  className: 'pl-1',
 }))`
-  max-width: calc(100vw - 2rem);
-  max-height: calc(100vh - 6rem);
+  max-width: calc(100vw - 6rem);
+  max-height: calc(100vh - 5rem);
   width: auto;
   height: auto;
   display: grid;
   gap: ${GRID_GAP}px;
   flex: 1;
+  padding-top: 5px;
 `;
 
 export default function DevelopmentComponent() {
