@@ -1,16 +1,10 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import GridAreaComponent from '../../shared/GridAreaComponent';
-import AuthUserOptions from './AuthUserOptions';
 import LayoutSelectorComponent from './LayoutSelectorComponent';
 
-const isUserLogged = false;
-
-const Header = styled.header.attrs(() => ({
-  className: 'p-1',
-}))`
+const Header = styled.header`
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   grid-template-rows: repeat(2, 1fr);
@@ -74,24 +68,24 @@ const AuthorArea = styled.div.attrs(() => ({
   }
 `;
 
-const createUserPanelForUnAuthenticateUser = () => (
-  <Link
-    to='/sign-in'
-    className='d-flex justify-content-center align-items-center flex-column mr-md-5 text-white'
-  >
-    <FontAwesomeIcon icon='user' size='lg' />
-    <span className='font-14 font-montserrat mt-1'>Sign in</span>
-  </Link>
-);
+const SaveButton = styled.button.attrs(() => ({
+  className: 'mr-1',
+}))`
+  outline: none;
+  border: 0;
+  background-color: #dd5c71;
+  color: #fff;
+  max-height: 50px;
+  padding: 0.5rem 2rem;
+  border-radius: 2px;
 
-export default function HeaderComponent() {
+  &:focus {
+    outline: none;
+  }
+`;
+
+export default function DevelopmentHeader() {
   const [fileName, setFileName] = useState(`Untitled`);
-
-  const userPanelElement = isUserLogged ? (
-    <AuthUserOptions />
-  ) : (
-    createUserPanelForUnAuthenticateUser()
-  );
 
   return (
     <Header>
@@ -120,9 +114,11 @@ export default function HeaderComponent() {
       </GridAreaComponent>
       <GridAreaComponent
         areaName='user-area'
-        className='d-flex flex-grow-1 justify-content-end text-white'
+        className='flex-grow-1 p-2 align-self-center justify-self-end'
       >
-        {userPanelElement}
+        <SaveButton>
+          <span>Save</span>
+        </SaveButton>
       </GridAreaComponent>
     </Header>
   );

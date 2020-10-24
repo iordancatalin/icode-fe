@@ -3,18 +3,15 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import styled from 'styled-components';
 import { LayoutContextProviver } from './core/contexts/LayoutContext';
 import loadFontAwsoneIcons from './core/font-awsome';
-import DevelopmentComponent from './features/development/DevelopmentComponent';
-import HeaderComponent from './features/header/HeaderComponent';
+import AppDevelopment from './features/development/AppDevelopment';
+import NavBarComponent from './features/nav-bar/NavBarComponent';
 
 loadFontAwsoneIcons();
 
-const AppContainer = styled.div.attrs(() => ({
-  className: 'p-2',
-}))`
-  min-height: 100vh;
+const AppContainer = styled.div`
+  height: 100vh;
   background-color: #343a40;
   display: flex;
-  flex-direction: column;
 `;
 
 function App() {
@@ -22,12 +19,11 @@ function App() {
     <BrowserRouter>
       <LayoutContextProviver>
         <AppContainer>
-          <HeaderComponent />
-
+          <NavBarComponent></NavBarComponent>
           <div className='d-flex flex-grow-1'>
             <Switch>
               <Route path='/'>
-                <DevelopmentComponent></DevelopmentComponent>
+                <AppDevelopment/>
               </Route>
             </Switch>
           </div>
