@@ -1,7 +1,7 @@
 import React from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import styled from 'styled-components';
-import { LayoutContextProviver } from './core/contexts/LayoutContext';
+import { ThemeStoreProvider } from './core/contexts/ThemeStoreContext';
 import loadFontAwsoneIcons from './core/font-awsome';
 import AppDevelopment from './features/development/AppDevelopment';
 import NavBarComponent from './features/nav-bar/NavBarComponent';
@@ -10,25 +10,31 @@ loadFontAwsoneIcons();
 
 const AppContainer = styled.div`
   height: 100vh;
-  background-color: #343a40;
+  background-color: ${({ theme }) => theme.secondary};
   display: flex;
+  overflow: hidden;
+`;
+
+const DivFlex = styled.div`
+  display: flex;
+  flex: 1;
 `;
 
 function App() {
   return (
     <BrowserRouter>
-      <LayoutContextProviver>
+      <ThemeStoreProvider>
         <AppContainer>
           <NavBarComponent></NavBarComponent>
-          <div className='d-flex flex-grow-1'>
+          <DivFlex>
             <Switch>
               <Route path='/'>
-                <AppDevelopment/>
+                <AppDevelopment />
               </Route>
             </Switch>
-          </div>
+          </DivFlex>
         </AppContainer>
-      </LayoutContextProviver>
+      </ThemeStoreProvider>
     </BrowserRouter>
   );
 }

@@ -31,7 +31,7 @@ const FileDetails = styled.div`
 `;
 
 const FileIcon = styled.div`
-  color: #fff;
+  color: ${({ theme }) => theme.foreground.secondary};
 
   grid-area: icon;
   align-self: center;
@@ -44,8 +44,9 @@ const FileNameArea = styled.div`
 `;
 
 const FileNameInput = styled.input.attrs(() => ({
-  className: 'pt-1 px-2 text-white font-montserrat',
+  className: 'pt-1 px-2 font-montserrat',
 }))`
+  color: ${({ theme }) => theme.foreground.secondary};
   border: 0;
   outline: none;
   border: 1px solid;
@@ -53,7 +54,7 @@ const FileNameInput = styled.input.attrs(() => ({
   background-color: transparent;
 
   &:focus {
-    border-color: #fff;
+    border-color: ${({ theme }) => theme.foreground.secondary};
   }
 `;
 
@@ -62,10 +63,15 @@ const AuthorArea = styled.div.attrs(() => ({
 }))`
   grid-area: author;
   font-size: 12px;
+`;
 
-  span {
-    color: #9d9d9d;
-  }
+const ByComponent = styled.span`
+  color: #9d9d9d;
+`;
+
+const AuthorName = styled.span`
+  margin-left: 5px;
+  color: ${({ theme }) => theme.foreground.secondary};
 `;
 
 const SaveButton = styled.button.attrs(() => ({
@@ -73,8 +79,8 @@ const SaveButton = styled.button.attrs(() => ({
 }))`
   outline: none;
   border: 0;
-  background-color: #dd5c71;
-  color: #fff;
+  background-color: ${({ theme }) => theme.accent};
+  color: ${({ theme }) => theme.foreground.primary};
   max-height: 50px;
   padding: 0.5rem 2rem;
   border-radius: 2px;
@@ -102,7 +108,8 @@ export default function DevelopmentHeader() {
             ></FileNameInput>
           </FileNameArea>
           <AuthorArea>
-            <span>by</span> <span className='text-white'>Anonymous Joker</span>
+            <ByComponent>by</ByComponent>
+            <AuthorName>Anonymous Joker</AuthorName>
           </AuthorArea>
         </FileDetails>
       </GridAreaComponent>

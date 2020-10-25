@@ -8,39 +8,45 @@ const InternalLink = styled(Link).attrs(() => ({
   display: flex;
   justify-content: center;
   align-items: center;
-  color: #fff;
+  color: ${({ theme }) => theme.foreground.primary};
   border-left: 6px solid transparent;
 
   &:hover {
-    color: #fff;
+    color: ${({ theme }) => theme.foreground.primary};
   }
 
   ${({ activelink }) =>
     activelink &&
     css`
-      color: #dd5c71;
-      border-color: #dd5c71;
+      color: ${({ theme }) => theme.accent};
+      border-color: ${({ theme }) => theme.accent};
 
       &:hover {
-        color: #dd5c71;
+        color: ${({ theme }) => theme.accent};
       }
     `}
 `;
 
 const DisabledLink = styled.div.attrs(() => ({
-  className: 'p-3 text-secondary',
+  className: 'p-3',
 }))`
   display: flex;
   justify-content: center;
   align-items: center;
   border-left: 6px solid transparent;
+  color: ${({ theme }) => theme.disabled};
 `;
 
-export default function NavBarLink({ to, children, className, disabled }) {
+export default function NavBarLink({
+  to,
+  children,
+  className,
+  disabled = false,
+}) {
   const { pathname } = useLocation();
 
   const navBarItem = disabled ? (
-    <DisabledLink className='p-3 text-secondary'>{children}</DisabledLink>
+    <DisabledLink>{children}</DisabledLink>
   ) : (
     <InternalLink
       className={className}

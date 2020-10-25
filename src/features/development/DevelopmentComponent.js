@@ -1,6 +1,6 @@
 import React, { useCallback, useContext, useEffect, useRef } from 'react';
 import { useState } from 'react';
-import styled from 'styled-components';
+import styled, { ThemeContext } from 'styled-components';
 import {
   CSS_CONFIG,
   HTML_CONFIG,
@@ -9,7 +9,7 @@ import {
   LAYOUT_TYPE_2,
 } from '../../core/constants';
 import { LayoutContext } from '../../core/contexts/LayoutContext';
-import CodeEditorComponent from '../../shared/CodeEditorComponent';
+import CodeEditorComponent from './CodeEditorComponent';
 import GridAreaComponent from '../../shared/GridAreaComponent';
 import LayoutComponent from '../../shared/LayoutComponent';
 import { executeCode } from './development-service';
@@ -29,10 +29,19 @@ const ICodeLayoutComponent = styled(LayoutComponent).attrs(() => ({
   padding-top: 5px;
 `;
 
+const OuputContainer = styled.div.attrs(() => ({
+  className: 'd-flex h-100 w-100 justify-content-center align-items-center',
+}))`
+  color: ${({ theme }) => theme.disabled};
+  background-color: ${({ theme }) => theme.outputBck};
+`;
+
 export default function DevelopmentComponent() {
   const [outputEndpoint, setOutputEndpoint] = useState();
   const [editorDimension, setEditorDimension] = useState();
   const [layout] = useContext(LayoutContext);
+
+  const themeContext = useContext(ThemeContext);
 
   const htmlValueRef = useRef(HTML_CONFIG.sample);
   const cssValueRef = useRef(CSS_CONFIG.sample);
@@ -71,9 +80,7 @@ export default function DevelopmentComponent() {
       ref={iframeRef}
     ></iframe>
   ) : (
-    <div className='d-flex h-100 w-100 justify-content-center align-items-center text-secondary bkg-secondary'>
-      No content to show here for the moment.
-    </div>
+    <OuputContainer>No content to show here for the moment.</OuputContainer>
   );
 
   const calculateEditorDimension = useCallback(
@@ -130,6 +137,7 @@ export default function DevelopmentComponent() {
           valueRef={htmlValueRef}
           onExecution={handleExecution}
           dimension={editorDimension}
+          theme={themeContext.monacoTheme}
         ></CodeEditorComponent>
       </GridAreaComponent>
       <GridAreaComponent areaName='css'>
@@ -139,6 +147,7 @@ export default function DevelopmentComponent() {
           valueRef={cssValueRef}
           onExecution={handleExecution}
           dimension={editorDimension}
+          theme={themeContext.monacoTheme}
         ></CodeEditorComponent>
       </GridAreaComponent>
       <GridAreaComponent areaName='js'>
@@ -148,6 +157,7 @@ export default function DevelopmentComponent() {
           valueRef={jsValueRef}
           onExecution={handleExecution}
           dimension={editorDimension}
+          theme={themeContext.monacoTheme}
         ></CodeEditorComponent>
       </GridAreaComponent>
       <GridAreaComponent areaName='output'>{contentElement}</GridAreaComponent>

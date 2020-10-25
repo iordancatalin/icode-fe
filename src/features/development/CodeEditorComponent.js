@@ -22,21 +22,21 @@ const EditorContainer = styled.div`
 const EditorHeader = styled.div.attrs(() => ({
   className: 'p-2 font-montserrat',
 }))`
-  color: #6c757d;
+  color: ${({ theme }) => theme.editor.header.color};
   display: flex;
   justify-content: flex-start;
-  background-color: #202124;
-  border-bottom: 1px solid #4a4545;
+  background-color: ${({ theme }) => theme.editor.header.background};
+  border-bottom: 1px solid ${({ theme }) => theme.editor.header.borderColor};
 `;
 
 const ToggleMaximizeButton = styled.button.attrs(() => ({
   className: 'border-0 bg-transparent',
 }))`
-  color: #6c757d;
+  color: ${({ theme }) => theme.editor.header.color};
   transition: 0.3s color ease-out;
 
   &:hover {
-    color: #fff;
+    color: ${({ theme }) => theme.foreground.secondary};
   }
 
   &:focus {
@@ -50,6 +50,7 @@ export default function CodeEditorComponent({
   valueRef,
   onExecution,
   dimension,
+  theme = 'dark',
 }) {
   const [maximized, setMaximized] = useState(false);
   const [editorDimension, setEditorDimension] = useState({
@@ -71,10 +72,13 @@ export default function CodeEditorComponent({
           height: `${dimension.height}px`,
         };
       } else if (editorContainerRef.current) {
-        const { width, height, } = editorContainerRef.current.getBoundingClientRect();
+        const {
+          width,
+          height,
+        } = editorContainerRef.current.getBoundingClientRect();
         return { width: `${width}px`, height: `${height}px` };
       }
-  
+
       return { width: '100%', height: '100%' };
     };
 
@@ -91,7 +95,9 @@ export default function CodeEditorComponent({
     editorRef.current.onDidChangeModelContent(() => {
       valueRef.current = valueGetter.current();
 
-      if (timeoutId.current) { clearTimeout(timeoutId.current); }
+      if (timeoutId.current) {
+        clearTimeout(timeoutId.current);
+      }
 
       const executionEvent = { type: 'execution', changed: title };
       timeoutId.current = setTimeout(() => onExecution(executionEvent), 1000);
@@ -120,7 +126,7 @@ export default function CodeEditorComponent({
       </EditorHeader>
       <Editor
         language={language}
-        theme='dark'
+        theme={theme}
         value={valueRef.current}
         width='100%'
         height='calc(100% - 2.5rem)'
