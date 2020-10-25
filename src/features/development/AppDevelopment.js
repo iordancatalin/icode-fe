@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { LayoutContextProviver } from '../../core/contexts/LayoutContext';
 import DevelopmentComponent from './DevelopmentComponent';
 import DevelopmentHeader from './DevelopmentHeader';
 
@@ -13,9 +14,11 @@ const AppDevelopmentContainer = styled.div.attrs(() => ({
 
 export default function AppDevelopment() {
   return (
-    <AppDevelopmentContainer>
-      <DevelopmentHeader />
-      <DevelopmentComponent />
-    </AppDevelopmentContainer>
+    <LayoutContextProviver>
+      <AppDevelopmentContainer>
+        <DevelopmentHeader />
+        <DevelopmentComponent />
+      </AppDevelopmentContainer>
+    </LayoutContextProviver>
   );
 }

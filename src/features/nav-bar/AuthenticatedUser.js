@@ -5,7 +5,7 @@ import styled from 'styled-components';
 const UserAvatar = styled.img`
   height: 35px;
   width: 35px;
-  border: 1px solid #fff;
+  border: 1px solid ${({ theme }) => theme.foreground.primary};
   cursor: pointer;
   border-radius: 100px;
 `;
@@ -13,7 +13,7 @@ const UserAvatar = styled.img`
 const StyledButton = styled.button`
   border: 0;
   background-color: transparent;
-  color: #fff;
+  color: ${({ theme }) => theme.foreground.primary};
   outline: none;
 
   &:focus {
@@ -24,7 +24,7 @@ const StyledButton = styled.button`
 const UserOptionsContainer = styled.div.attrs(() => ({
   className: 'position-absolute rounded',
 }))`
-  background-color: #1e1e1e;
+  background-color: ${({ theme }) => theme.primary};
   box-shadow: 1px 1px 15px black;
   right: -7rem;
   top: -4rem;
@@ -34,7 +34,7 @@ const UserOption = styled.div`
   transition: background-color 0.3s ease-out;
 
   &:hover {
-    background-color: #dd5c71;
+    background-color: ${({ theme }) => theme.accent};
   }
 `;
 

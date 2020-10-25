@@ -13,15 +13,15 @@ import { LayoutContext } from '../../core/contexts/LayoutContext';
 const LayoutButton = styled.button.attrs(() => ({
   className: 'p-2',
 }))`
-  background-color: rgb(103 108 113);
+  background-color: ${({ theme }) => theme.layout.background};
   width: 50px;
   height: 40px;
-  border: 1px solid rgb(187, 180, 180);
+  border: 1px solid ${({ theme }) => theme.layout.border};
 
   ${({ active }) =>
     active &&
     css`
-      background-color: #dd5c71;
+      background-color: ${({ theme }) => theme.accent};
     `}
 
   &:focus {

@@ -9,8 +9,8 @@ const NavigationBar = styled.nav.attrs(() => ({
 }))`
   display: flex;
   flex-direction: column;
-  background-color: #1e1e1e;
-  border-right: 2px solid #dd5c71;
+  background-color: ${({ theme }) => theme.primary};
+  border-right: 2px solid ${({ theme }) => theme.accent};
 `;
 
 const NavBarSection = styled.section`
@@ -21,10 +21,14 @@ const NavBarIcon = ({ icon }) => (
   <FontAwesomeIcon icon={icon} size='lg'></FontAwesomeIcon>
 );
 
+const SgnInNavBarLink = styled(NavBarLink)`
+  background-color: ${({ theme }) => theme.signInLink};
+`;
+
 const createUserSectionForUnAuthUser = () => (
-  <NavBarLink className='bg-secondary' to='/sign-in'>
+  <SgnInNavBarLink to='/sign-in'>
     <NavBarIcon icon='user'></NavBarIcon>
-  </NavBarLink>
+  </SgnInNavBarLink>
 );
 
 const userAuth = false;
