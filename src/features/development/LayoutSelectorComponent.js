@@ -8,7 +8,7 @@ import {
   LAYOUT_TYPE_3,
   LAYOUT_TYPE_4,
 } from '../../core/constants';
-import { LayoutContext } from '../../core/contexts/LayoutContext';
+import { LayoutContext } from './contexts/LayoutContext';
 
 const LayoutButton = styled.button.attrs(() => ({
   className: 'p-2',

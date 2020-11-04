@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { LAYOUT_TYPE_1 } from '../constants';
+import { LAYOUT_TYPE_1 } from '../../../core/constants';
 
 export const LayoutContext = React.createContext();
 

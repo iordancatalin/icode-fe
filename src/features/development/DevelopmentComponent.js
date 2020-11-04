@@ -8,7 +8,7 @@ import {
   LAYOUT_TYPE_1,
   LAYOUT_TYPE_2,
 } from '../../core/constants';
-import { LayoutContext } from '../../core/contexts/LayoutContext';
+import { LayoutContext } from './contexts/LayoutContext';
 import CodeEditorComponent from './CodeEditorComponent';
 import GridAreaComponent from '../../shared/GridAreaComponent';
 import LayoutComponent from '../../shared/LayoutComponent';

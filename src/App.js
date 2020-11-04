@@ -3,6 +3,7 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import styled from 'styled-components';
 import { ThemeStoreProvider } from './core/contexts/ThemeStoreContext';
 import loadFontAwsoneIcons from './core/font-awsome';
+import SignUp from './features/authentication/sign-up/SignUp';
 import AppDevelopment from './features/development/AppDevelopment';
 import NavBarComponent from './features/nav-bar/NavBarComponent';
 
@@ -25,14 +26,18 @@ function App() {
     <BrowserRouter>
       <ThemeStoreProvider>
         <AppContainer>
-          <NavBarComponent></NavBarComponent>
-          <DivFlex>
-            <Switch>
-              <Route path='/'>
+          <Switch>
+            <Route path='/sign-up'>
+              <SignUp />
+            </Route>
+
+            <Route path='/' exact={true}>
+              <NavBarComponent></NavBarComponent>
+              <DivFlex>
                 <AppDevelopment />
-              </Route>
-            </Switch>
-          </DivFlex>
+              </DivFlex>
+            </Route>
+          </Switch>
         </AppContainer>
       </ThemeStoreProvider>
     </BrowserRouter>
