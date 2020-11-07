@@ -41,6 +41,10 @@ export const AuthButton = styled.button.attrs(() => ({
   border: 0;
   background-color: ${({ theme }) => theme.accent};
   color: ${({ theme }) => theme.foreground.primary};
+
+  &:disabled {
+    filter: brightness(135%);
+  }
 `;
 
 export const AuthFooter = styled.footer.attrs(() => ({
@@ -61,4 +65,10 @@ export const AuthErrorr = styled.div.attrs(() => ({
 }))`
   min-width: 350px;
   text-align: center;
+`;
+
+export const AuthInputError = styled.div.attrs(() => ({
+  className: 'text-danger mb-1 pl-1',
+}))`
+  font-size: 12px;
 `;
