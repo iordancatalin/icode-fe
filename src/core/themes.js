@@ -25,6 +25,7 @@ const darkTheme = {
       borderColor: '#4a4545',
     },
   },
+  authFontColor: '#fff',
 };
 
 const lightTheme = {
@@ -52,6 +53,7 @@ const lightTheme = {
       borderColor: '#646464',
     },
   },
+  authFontColor: '#000',
 };
 
 export const findTheme = (themeName) =>

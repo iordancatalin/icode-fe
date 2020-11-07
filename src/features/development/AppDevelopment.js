@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { LayoutContextProviver } from '../../core/contexts/LayoutContext';
+import { LayoutContextProviver } from './contexts/LayoutContext';
 import DevelopmentComponent from './DevelopmentComponent';
 import DevelopmentHeader from './DevelopmentHeader';
 
