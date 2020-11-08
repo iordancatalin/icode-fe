@@ -18,6 +18,7 @@ import { useUsernameValidator } from '../hooks/username-validator';
 import { useEmailValidator } from '../hooks/email-validator';
 import { usePasswordValidator } from '../hooks/password-validator';
 import { useEffect } from 'react';
+import Loader from '../../../shared/Loader';
 
 export default function SignUp() {
   const [username, setUsername] = useState('');
@@ -33,6 +34,8 @@ export default function SignUp() {
     confirmPasswordError,
     confirmPasswordValidationFunc,
   ] = usePasswordValidator();
+
+  const [showLoader, setShowLoader] = useState(false);
 
   const history = useHistory();
 
@@ -63,6 +66,7 @@ export default function SignUp() {
       }
     };
 
+    setShowLoader(true);
     const body = { username, email, password };
     const response = await createAccount(body);
 
@@ -72,6 +76,8 @@ export default function SignUp() {
     } catch (error) {
       setErrorMessage(error.message);
     }
+
+    setShowLoader(false);
   }, [username, email, password, history]);
 
   const handleValueChanged = (event, setter, validationFunc) => {
@@ -98,6 +104,8 @@ export default function SignUp() {
 
   const confirmPasswordErrorElement = confirmPasswordError &&
     confirmPassword && <AuthInputError>{confirmPasswordError}</AuthInputError>;
+
+  const loaderElement = showLoader && <Loader />;
 
   const handleSignUp = () => {
     try {
@@ -195,6 +203,8 @@ export default function SignUp() {
           </div>
         </AuthFooter>
       </AuthContainer>
+
+      {loaderElement}
     </div>
   );
 }
