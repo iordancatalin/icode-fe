@@ -3,8 +3,8 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import styled from 'styled-components';
 import { ThemeStoreProvider } from './core/contexts/ThemeStoreContext';
 import loadFontAwsoneIcons from './core/font-awsome';
-import ConfirmEmail from './features/authentication/confirm-email/ConfirmEmail';
-import SignUp from './features/authentication/sign-up/SignUp';
+import ConfirmEmail from './features/authentication/components/ConfirmEmail';
+import SignUp from './features/authentication/components/SignUp';
 import AppDevelopment from './features/development/AppDevelopment';
 import NavBarComponent from './features/nav-bar/NavBarComponent';
 
