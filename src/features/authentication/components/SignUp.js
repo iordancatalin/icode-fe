@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { useCallback } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import {
@@ -19,6 +19,8 @@ import { useEmailValidator } from '../hooks/email-validator';
 import { usePasswordValidator } from '../hooks/password-validator';
 import { useEffect } from 'react';
 import Loader from '../../../shared/Loader';
+import { AuthContext } from '../../../core/contexts/AuthContext';
+import { REGISTER_ACTION } from '../../../core/reducers/auth-reducer';
 
 export default function SignUp() {
   const [username, setUsername] = useState('');
@@ -30,13 +32,11 @@ export default function SignUp() {
   const [usernameError, usernameValidationFunc] = useUsernameValidator();
   const [emailError, emailValidationFunc] = useEmailValidator();
   const [passwordError, passwordValidationFunc] = usePasswordValidator();
-  const [
-    confirmPasswordError,
-    confirmPasswordValidationFunc,
-  ] = usePasswordValidator();
+  const [confirmPasswordError, confirmPasswordValidationFunc] = usePasswordValidator();
 
   const [showLoader, setShowLoader] = useState(false);
 
+  const [, authDispacher] = useContext(AuthContext);
   const history = useHistory();
 
   useEffect(() => {
@@ -72,13 +72,17 @@ export default function SignUp() {
 
     try {
       validateResponse(response);
+
+      const responseBody = await response.json();
+      authDispacher({ type: REGISTER_ACTION, payload: responseBody });
+
+      setShowLoader(false);
       history.push('/confirm-email');
     } catch (error) {
+      setShowLoader(false);
       setErrorMessage(error.message);
     }
-
-    setShowLoader(false);
-  }, [username, email, password, history]);
+  }, [username, email, password, history, authDispacher]);
 
   const handleValueChanged = (event, setter, validationFunc) => {
     const { value } = event.target;

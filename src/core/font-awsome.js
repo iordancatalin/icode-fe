@@ -11,7 +11,7 @@ import {
   faShareAlt,
   faSignOutAlt,
   faUser,
-  faWindowMaximize
+  faWindowMaximize,
 } from '@fortawesome/free-solid-svg-icons';
 
 export default () => {

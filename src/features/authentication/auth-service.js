@@ -8,3 +8,11 @@ export const createAccount = (body) =>
     },
     body: JSON.stringify(body),
   });
+
+export const resendConfirmationEmail = (emailAddress) =>
+  fetch(`${baseURL}/api/v1/resend-confirmation-email/${emailAddress}`, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  });
