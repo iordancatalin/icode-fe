@@ -202,7 +202,7 @@ export default function SignUp() {
           <div className='mt-2'>
             <AuthFooterInfo>Forgot your password?</AuthFooterInfo>
             <Link className='ml-1' to='/request-reset-password'>
-              Reset
+              Reset password
             </Link>
           </div>
         </AuthFooter>

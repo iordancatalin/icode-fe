@@ -24,3 +24,17 @@ export const confirmEmailAddress = (token) =>
       'Content-Type': 'application/json',
     },
   });
+
+export const signInUser = (username, password) => {
+  const encodedUsername = btoa(username);
+  const encodedPassword = btoa(password);
+  const authorizationValue = `${encodedUsername}.${encodedPassword}`;
+
+  return fetch(`${baseURL}/api/v1/sign-in`, {
+    method: 'POST',
+    headers: {
+      Authorization: authorizationValue,
+      'Content-Type': 'application/json',
+    },
+  });
+};
