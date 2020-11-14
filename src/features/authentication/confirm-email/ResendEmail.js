@@ -1,50 +1,17 @@
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useContext, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import styled from 'styled-components';
 import { AuthContext } from '../../../core/contexts/AuthContext';
 import GridAreaComponent from '../../../shared/GridAreaComponent';
 import { resendConfirmationEmail } from '../auth-service';
-import { AuthButton, AuthInput, AuthInputError } from '../Auth.components';
 import { useEmailValidator } from '../hooks/email-validator';
-
-const Container = styled.div`
-  flex: 1;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-
-  color: ${({ theme }) => theme.foreground.secondary};
-`;
-
-const Header = styled.div.attrs(() => ({
-  className: 'font-montserrat',
-}))`
-  font-size: 2rem;
-`;
-
-const RotateAnimationIcon = styled(FontAwesomeIcon)`
-  @-webkit-keyframes rotating {
-    from {
-      transform: rotate(0deg);
-    }
-    to {
-      transform: rotate(360deg);
-    }
-  }
-  @keyframes rotating {
-    from {
-      transform: rotate(0deg);
-    }
-    to {
-      transform: rotate(360deg);
-    }
-  }
-
-  animation: rotating 4s linear infinite;
-`;
+import { AuthInputError, AuthInput, AuthButton } from '../Auth.components';
+import {
+  Container,
+  Header,
+  RotateAnimationIcon,
+} from './ConfirmEmail.components';
+import styled from 'styled-components';
 
 const ResendContainer = styled.div`
   display: grid;
@@ -71,7 +38,7 @@ const Button = styled(AuthButton)`
   }
 `;
 
-export default function ConfirmEmail() {
+export default function ResendEmail() {
   const [authState] = useContext(AuthContext);
   const [emailAddress, setEmailAddress] = useState(authState?.email);
   const [emailError, emailValidationFunc] = useEmailValidator();
@@ -86,9 +53,10 @@ export default function ConfirmEmail() {
 
     if (response.status === 200) {
       toast.success('Email was resend');
-    } else {
-      toast.erro('Something went wrong');
+      return;
     }
+
+    toast.erro('Something went wrong');
   };
 
   const handleEmailAddressChanged = (event) => {

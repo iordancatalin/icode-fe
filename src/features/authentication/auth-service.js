@@ -16,3 +16,11 @@ export const resendConfirmationEmail = (emailAddress) =>
       'Content-Type': 'application/json',
     },
   });
+
+export const confirmEmailAddress = (token) =>
+  fetch(`${baseURL}/api/v1/confirm-email/${token}`, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  });
