@@ -1,6 +1,7 @@
 import { library } from '@fortawesome/fontawesome-svg-core';
 import {
   faBell,
+  faCheck,
   faCode,
   faCog,
   faFileAlt,
@@ -10,8 +11,9 @@ import {
   faSave,
   faShareAlt,
   faSignOutAlt,
+  faTimes,
   faUser,
-  faWindowMaximize
+  faWindowMaximize,
 } from '@fortawesome/free-solid-svg-icons';
 
 export default () => {
@@ -27,4 +29,6 @@ export default () => {
   library.add(faShareAlt);
   library.add(faFolder);
   library.add(faSave);
+  library.add(faCheck);
+  library.add(faTimes);
 };
