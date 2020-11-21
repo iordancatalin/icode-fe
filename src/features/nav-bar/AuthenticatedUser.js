@@ -1,6 +1,9 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useCallback, useState } from 'react';
+import { useHistory } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import styled from 'styled-components';
+import { baseURL } from '../../core/constants';
 
 const UserAvatar = styled.img`
   height: 35px;
@@ -42,7 +45,34 @@ const UserOptionButton = styled(StyledButton)`
   padding: 0.65rem 0.5rem;
 `;
 
+const signOut = () => {
+  const jwt = localStorage.getItem('jwt-token');
+  const authorizationHeader = { authorization: `Bearer ${jwt}` };
+
+  return fetch(`${baseURL}/api/v1/sign-out`, {
+    method: 'POST',
+    headers: {
+      ...authorizationHeader,
+      'Content-Type': 'application/json',
+    },
+  });
+};
+
 export default function AuthenticatedUser() {
+  const history = useHistory();
+
+  const handleSignOut = useCallback(async () => {
+    const response = await signOut();
+
+    if (response.status === 200) {
+      localStorage.clear();
+      history.push('/auth/sign-in');
+      return;
+    }
+
+    toast.error('Ooops! Something went wrong');
+  }, [history]);
+
   const createOptions = useCallback(
     () => (
       <UserOptionsContainer>
@@ -53,14 +83,14 @@ export default function AuthenticatedUser() {
           </UserOptionButton>
         </UserOption>
         <UserOption className='rounded-bottom'>
-          <UserOptionButton>
+          <UserOptionButton onClick={handleSignOut}>
             <FontAwesomeIcon icon='sign-out-alt'></FontAwesomeIcon>
             <span className='ml-3'>Sign out</span>
           </UserOptionButton>
         </UserOption>
       </UserOptionsContainer>
     ),
-    []
+    [handleSignOut]
   );
 
   const [showOptions, setShowOptions] = useState(false);

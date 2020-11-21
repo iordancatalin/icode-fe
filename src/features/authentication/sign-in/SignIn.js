@@ -1,7 +1,10 @@
-import React, { useCallback, useState, useEffect } from 'react';
+import React, { useCallback, useState, useEffect, useContext } from 'react';
 import { Link, useHistory } from 'react-router-dom';
+import { toast } from 'react-toastify';
+import { AuthContext } from '../../../core/contexts/AuthContext';
+import { AUTHENTICATE_ACTION } from '../../../core/reducers/auth-reducer';
 import Loader from '../../../shared/Loader';
-import { signInUser } from '../auth-service';
+import { getCurrentAccountDetails, signInUser } from '../auth-service';
 import {
   AuthContainer,
   AuthHeader,
@@ -26,6 +29,8 @@ export default function SignIn() {
 
   const [usernameError, usernameValidationFunc] = useUsernameValidator();
   const [passwordError, passwordValidationFunc] = usePasswordValidator();
+
+  const [, authDispacher] = useContext(AuthContext);
 
   const history = useHistory();
 
@@ -77,8 +82,18 @@ export default function SignIn() {
       const jwt = authorizationHeader.replace('Bearer ', '');
       localStorage.setItem('jwt-token', jwt);
 
-      history.push('/my-projects');
+      const resp = await getCurrentAccountDetails();
+
+      if (resp.status === 200) {
+        const accountDetails = await resp.json();
+        authDispacher({ type: AUTHENTICATE_ACTION, payload: accountDetails });
+      } else {
+        toast.error('Oops! Something went wrong');
+        return;
+      }
+
       setShowLoader(false);
+      history.push('/kode/development');
       return;
     }
 
