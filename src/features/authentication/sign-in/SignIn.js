@@ -10,7 +10,7 @@ import {
   AuthInput,
   AuthFooterInfo,
   AuthButton,
-  AuthErrorr,
+  AuthError,
   AuthInputError,
 } from '../Auth.components';
 import { usePasswordValidator } from '../hooks/password-validator';
@@ -44,14 +44,14 @@ export default function SignIn() {
   };
 
   const errorElement = errorMessage && (
-    <AuthErrorr>
+    <AuthError>
       {errorMessage}
       {isAccountNotEnabled && (
         <Link className='ml-1' to='/confirm-email'>
           resend email
         </Link>
       )}
-    </AuthErrorr>
+    </AuthError>
   );
 
   const usernameErrorElement = usernameError && username && (
@@ -64,7 +64,7 @@ export default function SignIn() {
 
   const loaderElement = showLoader && <Loader />;
 
-  const isInValid = useCallback(() => usernameError || passwordError, [
+  const isInvalid = useCallback(() => usernameError || passwordError, [
     usernameError,
     passwordError,
   ]);
@@ -134,7 +134,7 @@ export default function SignIn() {
           <AuthButton
             className='m-3'
             onClick={handleSignIn}
-            disabled={isInValid()}
+            disabled={isInvalid()}
           >
             Sign in
           </AuthButton>
@@ -142,13 +142,13 @@ export default function SignIn() {
         <AuthFooter>
           <div>
             <AuthFooterInfo>Don't have an account?</AuthFooterInfo>
-            <Link className='ml-1' to='/sign-up'>
+            <Link className='ml-1' to='/auth/sign-up'>
               Sign up
             </Link>
           </div>
           <div className='mt-2'>
             <AuthFooterInfo>Forgot your password?</AuthFooterInfo>
-            <Link className='ml-1' to='/request-reset-password'>
+            <Link className='ml-1' to='/auth/reset-password'>
               Reset password
             </Link>
           </div>

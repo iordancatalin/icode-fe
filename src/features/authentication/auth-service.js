@@ -38,3 +38,21 @@ export const signInUser = (username, password) => {
     },
   });
 };
+
+export const requestResetPassword = (body) =>
+  fetch(`${baseURL}/api/v1/request-reset-password`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(body),
+  });
+
+export const changePassword = (token, body) =>
+  fetch(`${baseURL}/api/v1/reset-password/${token}`, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(body),
+  });
