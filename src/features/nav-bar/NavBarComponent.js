@@ -1,6 +1,8 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import React from 'react';
+import React, { useContext } from 'react';
 import styled from 'styled-components';
+import { AuthContext } from '../../core/contexts/AuthContext';
+import { AUTHENTICATE_STATUS } from '../../core/reducers/auth-reducer';
 import AuthenticatedUser from './AuthenticatedUser';
 import NavBarLink from './NavBarLink';
 
@@ -31,9 +33,11 @@ const createUserSectionForUnAuthUser = () => (
   </SgnInNavBarLink>
 );
 
-const userAuth = false;
-
 export default function NavBarComponent() {
+  const [auth] = useContext(AuthContext);
+
+  const userAuth = auth?.status === AUTHENTICATE_STATUS;
+
   const userSection = userAuth ? (
     <AuthenticatedUser />
   ) : (

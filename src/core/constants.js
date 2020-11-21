@@ -26,3 +26,5 @@ export const LAYOUT_TYPE_1 = 'layout-1';
 export const LAYOUT_TYPE_2 = 'layout-2';
 export const LAYOUT_TYPE_3 = 'layout-3';
 export const LAYOUT_TYPE_4 = 'layout-4';
+
+export const baseURL = 'http://localhost:8080';

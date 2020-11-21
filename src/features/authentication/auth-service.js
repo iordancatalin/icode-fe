@@ -1,4 +1,4 @@
-const baseURL = 'http://localhost:8080';
+import { baseURL } from '../../core/constants';
 
 export const createAccount = (body) =>
   fetch(`${baseURL}/api/v1/sign-up`, {
@@ -56,3 +56,16 @@ export const changePassword = (token, body) =>
     },
     body: JSON.stringify(body),
   });
+
+export const getCurrentAccountDetails = () => {
+  const jwt = localStorage.getItem('jwt-token');
+  const authorizationHeader = { authorization: `Bearer ${jwt}` };
+
+  return fetch(`${baseURL}/api/v1/account-details`, {
+    method: 'GET',
+    headers: {
+      ...authorizationHeader,
+      'Content-Type': 'application/json',
+    },
+  });
+};
