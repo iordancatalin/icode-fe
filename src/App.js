@@ -5,12 +5,10 @@ import styled from 'styled-components';
 import AuthContextProvider from './core/contexts/AuthContext';
 import { ThemeStoreProvider } from './core/contexts/ThemeStoreContext';
 import loadFontAwsoneIcons from './core/font-awsome';
-import ConfirmEmail from './features/authentication/confirm-email/ConfirmEmail';
-import SignUp from './features/authentication/sign-up/SignUp';
-import SignIn from './features/authentication/sign-in/SignIn';
 import AppDevelopment from './features/development/AppDevelopment';
 import NavBarComponent from './features/nav-bar/NavBarComponent';
 import 'react-toastify/dist/ReactToastify.css';
+import Authentication from './features/authentication/Authentication';
 
 loadFontAwsoneIcons();
 
@@ -33,16 +31,8 @@ function App() {
         <AuthContextProvider>
           <AppContainer>
             <Switch>
-              <Route path='/sign-in'>
-                <SignIn />
-              </Route>
-
-              <Route path='/sign-up'>
-                <SignUp />
-              </Route>
-
-              <Route path='/confirm-email'>
-                <ConfirmEmail />
+              <Route path='/auth'>
+                <Authentication />
               </Route>
 
               <Route path='/' exact={true}>

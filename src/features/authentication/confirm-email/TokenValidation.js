@@ -13,7 +13,7 @@ const createEmailConfirmed = () => (
     </Header>
     <div className='mt-2 font-montserrat'>
       <span>Them email address was confirmed with success, now you can</span>
-      <Link to='/sign-in' className='ml-1'>
+      <Link to='/auth/sign-in' className='ml-1'>
         Sign in
       </Link>
     </div>

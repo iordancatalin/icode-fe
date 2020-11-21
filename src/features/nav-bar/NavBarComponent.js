@@ -26,7 +26,7 @@ const SgnInNavBarLink = styled(NavBarLink)`
 `;
 
 const createUserSectionForUnAuthUser = () => (
-  <SgnInNavBarLink to='/sign-in'>
+  <SgnInNavBarLink to='/auth/sign-in'>
     <NavBarIcon icon='user'></NavBarIcon>
   </SgnInNavBarLink>
 );

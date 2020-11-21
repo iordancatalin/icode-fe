@@ -60,7 +60,7 @@ export const AuthFooterInfo = styled.span`
   color: ${({ theme }) => theme.foreground.primary};
 `;
 
-export const AuthErrorr = styled.div.attrs(() => ({
+export const AuthError = styled.div.attrs(() => ({
   className: 'alert alert-danger',
 }))`
   min-width: 350px;

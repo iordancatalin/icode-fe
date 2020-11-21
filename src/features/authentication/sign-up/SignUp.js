@@ -9,7 +9,7 @@ import {
   AuthInput,
   AuthFooterInfo,
   AuthButton,
-  AuthErrorr,
+  AuthError,
   AuthInputError,
 } from '../Auth.components';
 
@@ -32,7 +32,10 @@ export default function SignUp() {
   const [usernameError, usernameValidationFunc] = useUsernameValidator();
   const [emailError, emailValidationFunc] = useEmailValidator();
   const [passwordError, passwordValidationFunc] = usePasswordValidator();
-  const [confirmPasswordError, confirmPasswordValidationFunc] = usePasswordValidator();
+  const [
+    confirmPasswordError,
+    confirmPasswordValidationFunc,
+  ] = usePasswordValidator();
 
   const [showLoader, setShowLoader] = useState(false);
 
@@ -92,7 +95,7 @@ export default function SignUp() {
     setter(value);
   };
 
-  const errorElement = errorMessage && <AuthErrorr>{errorMessage}</AuthErrorr>;
+  const errorElement = errorMessage && <AuthError>{errorMessage}</AuthError>;
 
   const usernameErrorElement = usernameError && username && (
     <AuthInputError>{usernameError}</AuthInputError>
@@ -120,7 +123,7 @@ export default function SignUp() {
     }
   };
 
-  const isInValid = useCallback(
+  const isInvalid = useCallback(
     () => usernameError || emailError || passwordError || confirmPasswordError,
     [usernameError, emailError, passwordError, confirmPasswordError]
   );
@@ -187,7 +190,7 @@ export default function SignUp() {
           <AuthButton
             className='m-3'
             onClick={handleSignUp}
-            disabled={isInValid()}
+            disabled={isInvalid()}
           >
             Sign up
           </AuthButton>
@@ -195,13 +198,13 @@ export default function SignUp() {
         <AuthFooter>
           <div>
             <AuthFooterInfo>Already have an account?</AuthFooterInfo>
-            <Link className='ml-1' to='/sign-in'>
+            <Link className='ml-1' to='/auth/sign-in'>
               Sign in
             </Link>
           </div>
           <div className='mt-2'>
             <AuthFooterInfo>Forgot your password?</AuthFooterInfo>
-            <Link className='ml-1' to='/request-reset-password'>
+            <Link className='ml-1' to='/auth/reset-password'>
               Reset password
             </Link>
           </div>

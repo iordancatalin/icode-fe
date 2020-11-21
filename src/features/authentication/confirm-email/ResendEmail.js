@@ -81,7 +81,7 @@ export default function ResendEmail() {
           Thak you for joining us, you are almost there just confirm your email
           address and then
         </span>
-        <Link to='/sign-in' className='ml-1'>
+        <Link to='/auth/sign-in' className='ml-1'>
           Sign in
         </Link>
       </div>
