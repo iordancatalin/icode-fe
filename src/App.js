@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import styled from 'styled-components';
 import AuthContextProvider from './core/contexts/AuthContext';
@@ -9,6 +9,7 @@ import AppDevelopment from './features/development/AppDevelopment';
 import NavBarComponent from './features/nav-bar/NavBarComponent';
 import 'react-toastify/dist/ReactToastify.css';
 import Authentication from './features/authentication/Authentication';
+import NotFoundPage from './features/not-found/NotFoundPage';
 
 loadFontAwsoneIcons();
 
@@ -35,11 +36,21 @@ function App() {
                 <Authentication />
               </Route>
 
-              <Route path='/' exact={true}>
+              <Route path='/kode'>
                 <NavBarComponent></NavBarComponent>
                 <DivFlex>
-                  <AppDevelopment />
+                  <Route path='/kode/development'>
+                    <AppDevelopment />
+                  </Route>
                 </DivFlex>
+              </Route>
+
+              <Route path='/' exact={true}>
+                <Redirect to='/kode/development'></Redirect>
+              </Route>
+
+              <Route>
+                <NotFoundPage></NotFoundPage>
               </Route>
             </Switch>
 
