@@ -4,7 +4,7 @@ import { toast } from 'react-toastify';
 import { AuthContext } from '../../../core/contexts/AuthContext';
 import { AUTHENTICATE_ACTION } from '../../../core/reducers/auth-reducer';
 import Loader from '../../../shared/Loader';
-import { getCurrentAccountDetails, signInUser } from '../auth-service';
+import { getCurrentAccountDetails, signInUser } from '../../../core/services/auth-service';
 import {
   AuthContainer,
   AuthHeader,

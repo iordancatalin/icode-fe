@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 import Loader from '../../../shared/Loader';
-import { requestResetPassword } from '../auth-service';
+import { requestResetPassword } from '../../../core/services/auth-service';
 import {
   AuthContainer,
   AuthHeader,
