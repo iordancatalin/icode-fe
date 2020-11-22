@@ -13,6 +13,7 @@ import CodeEditorComponent from './CodeEditorComponent';
 import GridAreaComponent from '../../shared/GridAreaComponent';
 import LayoutComponent from '../../shared/LayoutComponent';
 import { executeCode } from './development-service';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 const GRID_GAP = 10;
 
@@ -34,6 +35,30 @@ const OuputContainer = styled.div.attrs(() => ({
 }))`
   color: ${({ theme }) => theme.disabled};
   background-color: ${({ theme }) => theme.outputBck};
+`;
+
+const ExternalLinkContainer = styled.div.attrs(() => ({
+  className: 'posibition-absolute rounded-circle',
+}))`
+  right: 10px;
+  top: 10px;
+  background-color: rgba(0, 0, 0, 0.2);
+
+  a {
+    width: 50px;
+    height: 50px;
+    color: #000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  &:hover {
+    a {
+      color: #fff;
+    }
+    background-color: #000;
+  }
 `;
 
 export default function DevelopmentComponent() {
@@ -73,12 +98,20 @@ export default function DevelopmentComponent() {
   }, []);
 
   const contentElement = outputEndpoint ? (
-    <iframe
-      className='h-100 w-100 border-0 bg-white'
-      src={outputEndpoint}
-      title='Execution result'
-      ref={iframeRef}
-    ></iframe>
+    <div className='h-100 position-relative'>
+      <iframe
+        className='h-100 w-100 border-0 bg-white'
+        src={outputEndpoint}
+        title='Execution result'
+        ref={iframeRef}
+      ></iframe>
+
+      <ExternalLinkContainer className='position-absolute'>
+        <a href={outputEndpoint} target='_blank' rel='noopener noreferrer'>
+          <FontAwesomeIcon icon='external-link-alt'></FontAwesomeIcon>
+        </a>
+      </ExternalLinkContainer>
+    </div>
   ) : (
     <OuputContainer>No content to show here for the moment.</OuputContainer>
   );

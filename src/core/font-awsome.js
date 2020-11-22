@@ -4,6 +4,7 @@ import {
   faCheck,
   faCode,
   faCog,
+  faExternalLinkAlt,
   faFileAlt,
   faFolder,
   faHome,
@@ -31,4 +32,5 @@ export default () => {
   library.add(faSave);
   library.add(faCheck);
   library.add(faTimes);
+  library.add(faExternalLinkAlt);
 };
