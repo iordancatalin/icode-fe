@@ -13,7 +13,7 @@ import {
   AuthInputError,
 } from '../Auth.components';
 
-import { createAccount } from '../auth-service';
+import { createAccount } from '../../../core/services/auth-service';
 import { useUsernameValidator } from '../hooks/username-validator';
 import { useEmailValidator } from '../hooks/email-validator';
 import { usePasswordValidator } from '../hooks/password-validator';
@@ -80,7 +80,7 @@ export default function SignUp() {
       authDispacher({ type: REGISTER_ACTION, payload: responseBody });
 
       setShowLoader(false);
-      history.push('/confirm-email');
+      history.push('/auth/confirm-email');
     } catch (error) {
       setShowLoader(false);
       setErrorMessage(error.message);

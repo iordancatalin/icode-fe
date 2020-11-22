@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
-import { changePassword } from '../auth-service';
+import { changePassword } from '../../../core/services/auth-service';
 import {
   AuthContainer,
   AuthHeader,

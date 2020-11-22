@@ -3,7 +3,7 @@ import React, { useCallback, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import styled from 'styled-components';
-import { baseURL } from '../../core/constants';
+import { signOut } from '../../core/services/auth-service';
 
 const UserAvatar = styled.img`
   height: 35px;
@@ -44,19 +44,6 @@ const UserOption = styled.div`
 const UserOptionButton = styled(StyledButton)`
   padding: 0.65rem 0.5rem;
 `;
-
-const signOut = () => {
-  const jwt = localStorage.getItem('jwt-token');
-  const authorizationHeader = { authorization: `Bearer ${jwt}` };
-
-  return fetch(`${baseURL}/api/v1/sign-out`, {
-    method: 'POST',
-    headers: {
-      ...authorizationHeader,
-      'Content-Type': 'application/json',
-    },
-  });
-};
 
 export default function AuthenticatedUser() {
   const history = useHistory();

@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Container, Header } from './ConfirmEmail.components';
 import Loader from '../../../shared/Loader';
-import { confirmEmailAddress } from '../auth-service';
+import { confirmEmailAddress } from '../../../core/services/auth-service';
 
 const createEmailConfirmed = () => (
   <Container>

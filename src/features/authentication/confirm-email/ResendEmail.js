@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { AuthContext } from '../../../core/contexts/AuthContext';
 import GridAreaComponent from '../../../shared/GridAreaComponent';
-import { resendConfirmationEmail } from '../auth-service';
+import { resendConfirmationEmail } from '../../../core/services/auth-service';
 import { useEmailValidator } from '../hooks/email-validator';
 import { AuthInputError, AuthInput, AuthButton } from '../Auth.components';
 import {
