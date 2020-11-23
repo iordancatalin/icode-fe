@@ -7,6 +7,7 @@ import {
   JS_CONFIG,
   LAYOUT_TYPE_1,
   LAYOUT_TYPE_2,
+  X_WRK_DIRECTORY,
 } from '../../core/constants';
 import { LayoutContext } from './contexts/LayoutContext';
 import CodeEditorComponent from './CodeEditorComponent';
@@ -93,7 +94,7 @@ export default function DevelopmentComponent() {
     }
 
     if (responseBody?.workingDirectory) {
-      sessionStorage.setItem('x-wrk-directory', responseBody.workingDirectory);
+      sessionStorage.setItem(X_WRK_DIRECTORY, responseBody.workingDirectory);
     }
   }, []);
 
