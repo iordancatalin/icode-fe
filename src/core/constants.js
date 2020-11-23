@@ -28,3 +28,5 @@ export const LAYOUT_TYPE_3 = 'layout-3';
 export const LAYOUT_TYPE_4 = 'layout-4';
 
 export const baseURL = 'http://localhost:8080';
+
+export const X_WRK_DIRECTORY = 'x-wrk-directory';

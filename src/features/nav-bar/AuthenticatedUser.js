@@ -31,6 +31,7 @@ const UserOptionsContainer = styled.div.attrs(() => ({
   box-shadow: 1px 1px 15px black;
   right: -7rem;
   top: -4rem;
+  z-index: 2;
 `;
 
 const UserOption = styled.div`
@@ -53,6 +54,7 @@ export default function AuthenticatedUser() {
 
     if (response.status === 200) {
       localStorage.clear();
+      sessionStorage.clear();
       history.push('/auth/sign-in');
       return;
     }

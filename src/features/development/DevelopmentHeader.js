@@ -1,7 +1,12 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
+import { toast } from 'react-toastify';
 import styled from 'styled-components';
+import { X_WRK_DIRECTORY } from '../../core/constants';
+import { AuthContext } from '../../core/contexts/AuthContext';
+import { AUTHENTICATE_STATUS } from '../../core/reducers/auth-reducer';
 import GridAreaComponent from '../../shared/GridAreaComponent';
+import { saveProject } from './dev-service';
 import LayoutSelectorComponent from './LayoutSelectorComponent';
 
 const Header = styled.header`
@@ -88,10 +93,36 @@ const SaveButton = styled.button.attrs(() => ({
   &:focus {
     outline: none;
   }
+
+  &:disabled {
+    filter: brightness(135%);
+  }
 `;
 
 export default function DevelopmentHeader() {
-  const [fileName, setFileName] = useState(`Untitled`);
+  const [projectName, setFileName] = useState(`Untitled`);
+  const [authState] = useContext(AuthContext);
+
+  const handleSave = async () => {
+    const body = {
+      projectName,
+      projectRef: sessionStorage.getItem(X_WRK_DIRECTORY),
+    };
+    const response = await saveProject(body);
+
+    if (response.status === 200) {
+      toast.success('Project saved with success', {
+        position: 'bottom-center',
+      });
+      return;
+    }
+
+    toast.error('Oops! Something went wrong', {
+      position: 'bottom-center',
+    });
+  };
+
+  const userLogger = authState?.status === AUTHENTICATE_STATUS;
 
   return (
     <Header>
@@ -103,7 +134,7 @@ export default function DevelopmentHeader() {
           <FileNameArea>
             <FileNameInput
               type='text'
-              value={fileName}
+              value={projectName}
               onChange={(event) => setFileName(event.target.value)}
             ></FileNameInput>
           </FileNameArea>
@@ -123,7 +154,7 @@ export default function DevelopmentHeader() {
         areaName='user-area'
         className='flex-grow-1 p-2 align-self-center justify-self-end'
       >
-        <SaveButton>
+        <SaveButton onClick={handleSave} disabled={!userLogger}>
           <span>Save</span>
         </SaveButton>
       </GridAreaComponent>
