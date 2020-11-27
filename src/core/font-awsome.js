@@ -9,15 +9,13 @@ import {
   faFolder,
   faHome,
   faPlay,
-  faPlus,
-  faPlusSquare,
   faSave,
   faSearch,
   faShareAlt,
   faSignOutAlt,
   faTimes,
   faUser,
-  faWindowMaximize,
+  faWindowMaximize
 } from '@fortawesome/free-solid-svg-icons';
 
 export default () => {
