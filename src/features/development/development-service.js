@@ -1,12 +1,14 @@
+import { baseURL, X_WRK_DIRECTORY } from '../../core/constants';
+
 export const executeCode = (body) =>
-  fetch('http://localhost:8080/api/v1/execute-code', {
+  fetch(`${baseURL}/api/v1/execute-code`, {
     method: 'POST',
     headers: createHeadersForExecuteCodeRequest(),
     body: JSON.stringify(body),
   });
 
 const createHeadersForExecuteCodeRequest = () => {
-  const wrkDirectory = sessionStorage.getItem('x-wrk-directory');
+  const wrkDirectory = sessionStorage.getItem(X_WRK_DIRECTORY);
 
   return wrkDirectory
     ? {

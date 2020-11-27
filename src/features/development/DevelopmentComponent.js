@@ -1,5 +1,11 @@
-import React, { useCallback, useContext, useEffect, useRef } from 'react';
-import { useState } from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import React, {
+  useCallback,
+  useContext,
+  useEffect,
+  useRef,
+  useState,
+} from 'react';
 import styled, { ThemeContext } from 'styled-components';
 import {
   CSS_CONFIG,
@@ -9,12 +15,11 @@ import {
   LAYOUT_TYPE_2,
   X_WRK_DIRECTORY,
 } from '../../core/constants';
-import { LayoutContext } from './contexts/LayoutContext';
-import CodeEditorComponent from './CodeEditorComponent';
 import GridAreaComponent from '../../shared/GridAreaComponent';
 import LayoutComponent from '../../shared/LayoutComponent';
+import CodeEditorComponent from './CodeEditorComponent';
+import { LayoutContext } from './contexts/LayoutContext';
 import { executeCode } from './development-service';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 const GRID_GAP = 10;
 
@@ -62,26 +67,38 @@ const ExternalLinkContainer = styled.div.attrs(() => ({
   }
 `;
 
-export default function DevelopmentComponent() {
+export default function DevelopmentComponent({
+  project,
+  htmlValueRef,
+  cssValueRef,
+  jsValueRef,
+}) {
   const [outputEndpoint, setOutputEndpoint] = useState();
   const [editorDimension, setEditorDimension] = useState();
   const [layout] = useContext(LayoutContext);
 
   const themeContext = useContext(ThemeContext);
 
-  const htmlValueRef = useRef(HTML_CONFIG.sample);
-  const cssValueRef = useRef(CSS_CONFIG.sample);
-  const jsValueRef = useRef(JS_CONFIG.sample);
-
   const layoutContainerRef = useRef();
   const timeoutId = useRef();
   const iframeRef = useRef();
 
-  const createRequestBody = () => ({
-    html: htmlValueRef.current,
-    css: cssValueRef.current,
-    js: jsValueRef.current,
-  });
+  useEffect(() => {
+    if (project) {
+      sessionStorage.setItem(X_WRK_DIRECTORY, project.projectRef);
+    } else {
+      sessionStorage.clear();
+    }
+  }, [project]);
+
+  const createRequestBody = useCallback(
+    () => ({
+      html: htmlValueRef.current,
+      css: cssValueRef.current,
+      js: jsValueRef.current,
+    }),
+    [cssValueRef, htmlValueRef, jsValueRef]
+  );
 
   const handleExecution = useCallback(async () => {
     const requestBody = createRequestBody();
@@ -96,7 +113,7 @@ export default function DevelopmentComponent() {
     if (responseBody?.workingDirectory) {
       sessionStorage.setItem(X_WRK_DIRECTORY, responseBody.workingDirectory);
     }
-  }, []);
+  }, [createRequestBody]);
 
   const contentElement = outputEndpoint ? (
     <div className='h-100 position-relative'>
@@ -160,7 +177,7 @@ export default function DevelopmentComponent() {
 
   useEffect(() => {
     handleExecution();
-  }, [handleExecution]);
+  }, [handleExecution, project]);
 
   return (
     <ICodeLayoutComponent layoutType={layout} ref={layoutContainerRef}>

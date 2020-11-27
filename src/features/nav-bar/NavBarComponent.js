@@ -47,12 +47,12 @@ export default function NavBarComponent() {
   return (
     <NavigationBar>
       <NavBarSection>
-        <NavBarLink to='/'>
+        <NavBarLink to='/kode/development'>
           <NavBarIcon icon='code'></NavBarIcon>
         </NavBarLink>
       </NavBarSection>
       <NavBarSection>
-        <NavBarLink to='/home' disabled={!userAuth}>
+        <NavBarLink to='/kode/my-projects' disabled={!userAuth}>
           <NavBarIcon icon='home'></NavBarIcon>
         </NavBarLink>
         <NavBarLink to='/shared' disabled={!userAuth}>

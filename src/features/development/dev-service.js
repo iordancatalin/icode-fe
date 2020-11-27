@@ -7,3 +7,9 @@ export const saveProject = (body) =>
     headers: getCommonHeaders(),
     body: JSON.stringify(body),
   });
+
+export const loadByProjectRef = (projectRef) =>
+  fetch(`${baseURL}/api/v1/project/${projectRef}`, {
+    method: 'GET',
+    headers: getCommonHeaders(),
+  });

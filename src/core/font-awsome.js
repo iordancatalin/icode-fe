@@ -9,7 +9,10 @@ import {
   faFolder,
   faHome,
   faPlay,
+  faPlus,
+  faPlusSquare,
   faSave,
+  faSearch,
   faShareAlt,
   faSignOutAlt,
   faTimes,
@@ -33,4 +36,5 @@ export default () => {
   library.add(faCheck);
   library.add(faTimes);
   library.add(faExternalLinkAlt);
+  library.add(faSearch);
 };
