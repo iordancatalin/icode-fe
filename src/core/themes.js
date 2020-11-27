@@ -26,6 +26,8 @@ const darkTheme = {
     },
   },
   authFontColor: '#fff',
+  projectBck:'#1e1e1e',
+  searchBck: '#1e1e1e',
 };
 
 const lightTheme = {
@@ -54,6 +56,8 @@ const lightTheme = {
     },
   },
   authFontColor: '#000',
+  projectBck: '#fff',
+  searchBck: '#fff',
 };
 
 export const findTheme = (themeName) =>

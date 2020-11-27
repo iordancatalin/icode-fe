@@ -10,6 +10,7 @@ import NavBarComponent from './features/nav-bar/NavBarComponent';
 import 'react-toastify/dist/ReactToastify.css';
 import Authentication from './features/authentication/Authentication';
 import NotFoundPage from './features/not-found/NotFoundPage';
+import MyProjects from './features/my-projects/MyProjects';
 
 loadFontAwsoneIcons();
 
@@ -41,6 +42,10 @@ function App() {
                 <DivFlex>
                   <Route path='/kode/development'>
                     <AppDevelopment />
+                  </Route>
+
+                  <Route path='/kode/my-projects'>
+                    <MyProjects></MyProjects>
                   </Route>
                 </DivFlex>
               </Route>

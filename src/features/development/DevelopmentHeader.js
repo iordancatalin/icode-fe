@@ -1,12 +1,9 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import React, { useContext, useState } from 'react';
-import { toast } from 'react-toastify';
+import React, { useContext } from 'react';
 import styled from 'styled-components';
-import { X_WRK_DIRECTORY } from '../../core/constants';
 import { AuthContext } from '../../core/contexts/AuthContext';
 import { AUTHENTICATE_STATUS } from '../../core/reducers/auth-reducer';
 import GridAreaComponent from '../../shared/GridAreaComponent';
-import { saveProject } from './dev-service';
 import LayoutSelectorComponent from './LayoutSelectorComponent';
 
 const Header = styled.header`
@@ -99,28 +96,12 @@ const SaveButton = styled.button.attrs(() => ({
   }
 `;
 
-export default function DevelopmentHeader() {
-  const [projectName, setFileName] = useState(`Untitled`);
+export default function DevelopmentHeader({
+  onSave,
+  projectName,
+  onNameChanged,
+}) {
   const [authState] = useContext(AuthContext);
-
-  const handleSave = async () => {
-    const body = {
-      projectName,
-      projectRef: sessionStorage.getItem(X_WRK_DIRECTORY),
-    };
-    const response = await saveProject(body);
-
-    if (response.status === 200) {
-      toast.success('Project saved with success', {
-        position: 'bottom-center',
-      });
-      return;
-    }
-
-    toast.error('Oops! Something went wrong', {
-      position: 'bottom-center',
-    });
-  };
 
   const userLogger = authState?.status === AUTHENTICATE_STATUS;
 
@@ -135,7 +116,7 @@ export default function DevelopmentHeader() {
             <FileNameInput
               type='text'
               value={projectName}
-              onChange={(event) => setFileName(event.target.value)}
+              onChange={(event) => onNameChanged(event.target.value)}
             ></FileNameInput>
           </FileNameArea>
           <AuthorArea>
@@ -154,7 +135,7 @@ export default function DevelopmentHeader() {
         areaName='user-area'
         className='flex-grow-1 p-2 align-self-center justify-self-end'
       >
-        <SaveButton onClick={handleSave} disabled={!userLogger}>
+        <SaveButton onClick={() => onSave(projectName)} disabled={!userLogger}>
           <span>Save</span>
         </SaveButton>
       </GridAreaComponent>
