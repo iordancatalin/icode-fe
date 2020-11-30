@@ -1,11 +1,12 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import styled from 'styled-components';
 import { baseURL } from '../../core/constants';
 import Project from '../../shared/Project';
 import SearchComponent from '../../shared/SearchComponent';
-import { getUserProjects } from './project-service';
+import { deleteProjectByRef, getUserProjects } from './project-service';
 
 const ProjectArea = styled.div`
   height: 250px;
@@ -65,6 +66,23 @@ export default function MyProjects() {
       )
     );
 
+  const handleDeleteProject = async (projectRef) => {
+    const response = await deleteProjectByRef(projectRef);
+
+    if (response.status === 200) {
+      setProjects((oldProjects) =>
+        oldProjects.filter((project) => project.projectRef !== projectRef)
+      );
+      setFilteredProjects((oldProjects) =>
+        oldProjects.filter((project) => project.projectRef !== projectRef)
+      );
+
+      return;
+    }
+
+    toast.error('Oops! Something went wrong');
+  };
+
   const handleOnProjectClick = (projectRef) =>
     history.push(`/kode/development?projectRef=${projectRef}`);
 
@@ -75,6 +93,7 @@ export default function MyProjects() {
         name={project.name}
         projectRef={project.projectRef}
         onClick={handleOnProjectClick}
+        onDelete={handleDeleteProject}
       ></Project>
     </ProjectArea>
   ));

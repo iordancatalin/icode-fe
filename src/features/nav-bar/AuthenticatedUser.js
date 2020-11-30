@@ -1,7 +1,6 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useCallback, useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import { toast } from 'react-toastify';
 import styled from 'styled-components';
 import { signOut } from '../../core/services/auth-service';
 
@@ -49,17 +48,11 @@ const UserOptionButton = styled(StyledButton)`
 export default function AuthenticatedUser() {
   const history = useHistory();
 
-  const handleSignOut = useCallback(async () => {
-    const response = await signOut();
-
-    if (response.status === 200) {
-      localStorage.clear();
-      sessionStorage.clear();
-      history.push('/auth/sign-in');
-      return;
-    }
-
-    toast.error('Ooops! Something went wrong');
+  const handleSignOut = useCallback(() => {
+    signOut();
+    localStorage.clear();
+    sessionStorage.clear();
+    history.push('/auth/sign-in');
   }, [history]);
 
   const createOptions = useCallback(
