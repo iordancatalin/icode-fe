@@ -9,11 +9,13 @@ import {
   faFolder,
   faHome,
   faPlay,
+  faPlus,
   faSave,
   faSearch,
   faShareAlt,
   faSignOutAlt,
   faTimes,
+  faTrash,
   faUser,
   faWindowMaximize
 } from '@fortawesome/free-solid-svg-icons';
@@ -35,4 +37,7 @@ export default () => {
   library.add(faTimes);
   library.add(faExternalLinkAlt);
   library.add(faSearch);
+  library.add(faPlus);
+  library.add(faShareAlt);
+  library.add(faTrash);
 };

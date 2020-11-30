@@ -6,3 +6,9 @@ export const getUserProjects = () =>
     method: 'GET',
     headers: getCommonHeaders(),
   });
+
+export const deleteProjectByRef = (projectRef) =>
+  fetch(`${baseURL}/api/v1/project/${projectRef}`, {
+    method: 'DELETE',
+    headers: getCommonHeaders(),
+  });
