@@ -12,7 +12,7 @@ const ProjectContainer = styled.div.attrs(() => ({
 `;
 
 const ProjectIFrame = styled.iframe`
-  height: 70%;
+  height: ${({ sharedProject }) => (sharedProject ? '80%' : '70%')};
   width: 100%;
   overflow: hidden;
   border: 0;
@@ -61,27 +61,35 @@ export default function Project({
   onClick,
   onDelete,
   onShare,
+  sharedProject = false,
 }) {
+  const footer = !sharedProject && (
+    <div className='d-flex'>
+      <ProjectOptionButton
+        onClick={() => onShare(projectRef)}
+        style={{ borderBottomLeftRadius: '.25rem' }}
+      >
+        <FontAwesomeIcon icon='share-alt'></FontAwesomeIcon>
+      </ProjectOptionButton>
+
+      <ProjectOptionButton
+        onClick={() => onDelete(projectRef)}
+        style={{ borderBottomRightRadius: '.25rem' }}
+      >
+        <FontAwesomeIcon icon='trash'></FontAwesomeIcon>
+      </ProjectOptionButton>
+    </div>
+  );
+
   return (
     <ProjectContainer>
       <ProjectHeader onClick={() => onClick(projectRef)}>{name}</ProjectHeader>
-      <ProjectIFrame src={iframeURL} title='Project'></ProjectIFrame>
-
-      <div className='d-flex'>
-        <ProjectOptionButton
-          onClick={() => onShare(projectRef)}
-          style={{ borderBottomLeftRadius: '.25rem' }}
-        >
-          <FontAwesomeIcon icon='share-alt'></FontAwesomeIcon>
-        </ProjectOptionButton>
-
-        <ProjectOptionButton
-          onClick={() => onDelete(projectRef)}
-          style={{ borderBottomRightRadius: '.25rem' }}
-        >
-          <FontAwesomeIcon icon='trash'></FontAwesomeIcon>
-        </ProjectOptionButton>
-      </div>
+      <ProjectIFrame
+        sharedProject={sharedProject}
+        src={iframeURL}
+        title='Project'
+      ></ProjectIFrame>
+      {footer}
     </ProjectContainer>
   );
 }

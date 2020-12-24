@@ -73,7 +73,8 @@ const Notifications = styled.div`
 
 export default function AuthenticatedUser() {
   const [notifications, setNotifications] = useState([]);
-  const [showNotifications, setShowNotifications] = useState(true);
+  const [showNotifications, setShowNotifications] = useState(false);
+  const [showOptions, setShowOptions] = useState(false);
 
   const [auth] = useContext(AuthContext);
   const history = useHistory();
@@ -105,7 +106,6 @@ export default function AuthenticatedUser() {
     [handleSignOut]
   );
 
-  const [showOptions, setShowOptions] = useState(false);
 
   const userOptions = showOptions && createOptions();
 

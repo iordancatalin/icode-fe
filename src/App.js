@@ -11,6 +11,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import Authentication from './features/authentication/Authentication';
 import NotFoundPage from './features/not-found/NotFoundPage';
 import MyProjects from './features/my-projects/MyProjects';
+import SharedProjects from './features/shared-projects/SharedProjects';
 
 loadFontAwsoneIcons();
 
@@ -46,6 +47,10 @@ function App() {
 
                   <Route path='/kode/my-projects'>
                     <MyProjects></MyProjects>
+                  </Route>
+
+                  <Route path='/kode/shared-projects'>
+                    <SharedProjects></SharedProjects>
                   </Route>
                 </DivFlex>
               </Route>
