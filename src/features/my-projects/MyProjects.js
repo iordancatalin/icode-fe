@@ -113,6 +113,8 @@ export default function MyProjects() {
     );
   };
 
+  const handleNewProject = () => history.push('/kode/development');
+
   const projectsElement = filteredProjects.map((project, index) => (
     <ProjectArea key={index}>
       <Project
@@ -138,7 +140,7 @@ export default function MyProjects() {
       <ProjectsGrid>
         <ProjectArea>
           <NewProject>
-            <NewProjectButton>
+            <NewProjectButton onClick={handleNewProject}>
               <FontAwesomeIcon icon='plus'></FontAwesomeIcon>
             </NewProjectButton>
           </NewProject>

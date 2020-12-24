@@ -58,7 +58,7 @@ export default function NavBarComponent() {
         <NavBarLink to='/kode/shared-projects' disabled={!userAuth}>
           <NavBarIcon icon='share-alt'></NavBarIcon>
         </NavBarLink>
-        <NavBarLink to='/settings' disabled={!userAuth}>
+        <NavBarLink to='/kode/settings' disabled={!userAuth}>
           <NavBarIcon icon='cog'></NavBarIcon>
         </NavBarLink>
       </NavBarSection>

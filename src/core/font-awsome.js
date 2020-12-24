@@ -10,12 +10,14 @@ import {
   faFileAlt,
   faFolder,
   faHome,
+  faMoon,
   faPlay,
   faPlus,
   faSave,
   faSearch,
   faShareAlt,
   faSignOutAlt,
+  faSun,
   faTimes,
   faTrash,
   faUser,
@@ -44,4 +46,6 @@ export default () => {
   library.add(faTrash);
   library.add(faEnvelopeOpen);
   library.add(faChevronDown);
+  library.add(faMoon);
+  library.add(faSun);
 };

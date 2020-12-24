@@ -12,6 +12,7 @@ import Authentication from './features/authentication/Authentication';
 import NotFoundPage from './features/not-found/NotFoundPage';
 import MyProjects from './features/my-projects/MyProjects';
 import SharedProjects from './features/shared-projects/SharedProjects';
+import Settings from './features/settings/Settings';
 
 loadFontAwsoneIcons();
 
@@ -51,6 +52,10 @@ function App() {
 
                   <Route path='/kode/shared-projects'>
                     <SharedProjects></SharedProjects>
+                  </Route>
+
+                  <Route path='/kode/settings'>
+                    <Settings></Settings>
                   </Route>
                 </DivFlex>
               </Route>

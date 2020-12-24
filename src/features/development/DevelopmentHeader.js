@@ -104,6 +104,7 @@ export default function DevelopmentHeader({
   const [authState] = useContext(AuthContext);
 
   const userLogger = authState?.status === AUTHENTICATE_STATUS;
+  const author = authState?.status === AUTHENTICATE_STATUS ? authState.username : 'Anonymous';
 
   return (
     <Header>
@@ -121,7 +122,7 @@ export default function DevelopmentHeader({
           </FileNameArea>
           <AuthorArea>
             <ByComponent>by</ByComponent>
-            <AuthorName>Anonymous Joker</AuthorName>
+            <AuthorName>{author}</AuthorName>
           </AuthorArea>
         </FileDetails>
       </GridAreaComponent>
