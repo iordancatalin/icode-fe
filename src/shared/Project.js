@@ -40,7 +40,7 @@ const ProjectOptionButton = styled.button.attrs(() => ({
   className: 'p-1',
 }))`
   width: 50%;
-  border: 1px solid ${({ theme }) => theme.foreground.secondary};
+  border: 0;
   background-color: transparent;
   color: ${({ theme }) => theme.foreground.secondary};
 
@@ -69,7 +69,7 @@ export default function Project({
 
       <div className='d-flex'>
         <ProjectOptionButton
-          onClick={onShare}
+          onClick={() => onShare(projectRef)}
           style={{ borderBottomLeftRadius: '.25rem' }}
         >
           <FontAwesomeIcon icon='share-alt'></FontAwesomeIcon>

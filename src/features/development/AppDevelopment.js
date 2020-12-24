@@ -10,7 +10,7 @@ import {
   X_WRK_DIRECTORY,
 } from '../../core/constants';
 import { LayoutContextProviver } from './contexts/LayoutContext';
-import { loadByProjectRef, saveProject } from './dev-service';
+import { loadByProjectRef, saveProject } from './development-service';
 import DevelopmentComponent from './DevelopmentComponent';
 import DevelopmentHeader from './DevelopmentHeader';
 

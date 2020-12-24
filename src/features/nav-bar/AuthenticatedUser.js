@@ -1,8 +1,12 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useContext, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
+import { notificationServiceBaseURL } from '../../core/constants';
+import { AuthContext } from '../../core/contexts/AuthContext';
 import { signOut } from '../../core/services/auth-service';
+import { markNotificationAsRead } from './notification-service';
+import NotificationsComponent from './NotificationsComponent';
 
 const UserAvatar = styled.img`
   height: 35px;
@@ -17,6 +21,8 @@ const StyledButton = styled.button`
   background-color: transparent;
   color: ${({ theme }) => theme.foreground.primary};
   outline: none;
+  width: 100%;
+  position: relative;
 
   &:focus {
     outline: none;
@@ -45,7 +51,31 @@ const UserOptionButton = styled(StyledButton)`
   padding: 0.65rem 0.5rem;
 `;
 
+const CountPill = styled.div.attrs(() => ({
+  className: 'rounded-circle font-montserrat',
+}))`
+  width: 21px;
+  height: 21px;
+  right: 12px;
+  top: -10px;
+  padding: 2px;
+  position: absolute;
+  font-size: 12px;
+  background-color: ${({ theme }) => theme.accent};
+`;
+
+const Notifications = styled.div`
+  position: absolute;
+  top: -340px;
+  right: -440px;
+  z-index: 10;
+`;
+
 export default function AuthenticatedUser() {
+  const [notifications, setNotifications] = useState([]);
+  const [showNotifications, setShowNotifications] = useState(true);
+
+  const [auth] = useContext(AuthContext);
   const history = useHistory();
 
   const handleSignOut = useCallback(() => {
@@ -79,11 +109,58 @@ export default function AuthenticatedUser() {
 
   const userOptions = showOptions && createOptions();
 
+  useEffect(() => {
+    const eventSource = new EventSource(
+      `${notificationServiceBaseURL}/api/v1/notifications/${auth.username}`
+    );
+    eventSource.onmessage = ({ data }) =>
+      setNotifications((prevState) => [...prevState, JSON.parse(data)]);
+    eventSource.onerror = (err) => console.log(err);
+
+    return () => eventSource.close();
+  }, [auth]);
+
+  const toggleNotifications = useCallback(
+    () => setShowNotifications((prevState) => !prevState),
+    []
+  );
+
+  const handleMarkNotificationAsRead = async (notificationId) => {
+    const response = await markNotificationAsRead(notificationId);
+
+    if (response.status === 200) {
+      setNotifications((prevState) =>
+        prevState.filter(({ id }) => id !== notificationId)
+      );
+    }
+  };
+
+  const handleNotitificationComponentClose = () => setShowNotifications(false);
+
+  const countPill = !!notifications?.length && (
+    <CountPill>{notifications.length}</CountPill>
+  );
+
+  const notificationsElmenet = showNotifications && (
+    <Notifications>
+      <NotificationsComponent
+        notifications={notifications}
+        onMarkAsRead={handleMarkNotificationAsRead}
+        onClose={handleNotitificationComponentClose}
+      ></NotificationsComponent>
+    </Notifications>
+  );
+
   return (
     <div className='d-flex flex-column'>
-      <StyledButton className='mb-3'>
-        <FontAwesomeIcon icon='bell' size='lg'></FontAwesomeIcon>
-      </StyledButton>
+      <div className='position-relative'>
+        <StyledButton className='mb-3' onClick={toggleNotifications}>
+          <FontAwesomeIcon icon='bell' size='lg'></FontAwesomeIcon>
+          {countPill}
+        </StyledButton>
+
+        {notificationsElmenet}
+      </div>
 
       <div className='d-flex justify-content-center align-items-center pb-4 position-relative'>
         <UserAvatar

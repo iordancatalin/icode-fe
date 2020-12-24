@@ -58,9 +58,6 @@ export default function NavBarComponent() {
         <NavBarLink to='/shared' disabled={!userAuth}>
           <NavBarIcon icon='share-alt'></NavBarIcon>
         </NavBarLink>
-        <NavBarLink to='/assets' disabled={!userAuth}>
-          <NavBarIcon icon='folder'></NavBarIcon>
-        </NavBarLink>
         <NavBarLink to='/settings' disabled={!userAuth}>
           <NavBarIcon icon='cog'></NavBarIcon>
         </NavBarLink>

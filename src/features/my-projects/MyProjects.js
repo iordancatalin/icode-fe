@@ -6,7 +6,12 @@ import styled from 'styled-components';
 import { baseURL } from '../../core/constants';
 import Project from '../../shared/Project';
 import SearchComponent from '../../shared/SearchComponent';
-import { deleteProjectByRef, getUserProjects } from './project-service';
+import {
+  deleteProjectByRef,
+  getUserProjects,
+  shareProject,
+} from './project-service';
+import ShareModal from './ShareModal';
 
 const ProjectArea = styled.div`
   height: 250px;
@@ -42,6 +47,8 @@ const createIFrameEndpoint = (projectRef) =>
 export default function MyProjects() {
   const [projects, setProjects] = useState([]);
   const [filteredProjects, setFilteredProjects] = useState([]);
+  const [shareModal, setShareModal] = useState(null);
+
   const history = useHistory();
 
   useEffect(() => {
@@ -86,6 +93,26 @@ export default function MyProjects() {
   const handleOnProjectClick = (projectRef) =>
     history.push(`/kode/development?projectRef=${projectRef}`);
 
+  const handleCloseModal = () => setShareModal(null);
+
+  const handleOnProceed = async (payload) => {
+    const response = await shareProject(payload);
+
+    if (response.status === 200) {
+      setShareModal(null);
+    }
+  };
+
+  const handleOnShare = (projectRef) => {
+    setShareModal(
+      <ShareModal
+        projectRef={projectRef}
+        onClose={handleCloseModal}
+        onProceed={handleOnProceed}
+      />
+    );
+  };
+
   const projectsElement = filteredProjects.map((project, index) => (
     <ProjectArea key={index}>
       <Project
@@ -94,6 +121,7 @@ export default function MyProjects() {
         projectRef={project.projectRef}
         onClick={handleOnProjectClick}
         onDelete={handleDeleteProject}
+        onShare={handleOnShare}
       ></Project>
     </ProjectArea>
   ));
@@ -118,6 +146,8 @@ export default function MyProjects() {
 
         {projectsElement}
       </ProjectsGrid>
+
+      {shareModal}
     </div>
   );
 }

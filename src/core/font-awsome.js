@@ -2,8 +2,10 @@ import { library } from '@fortawesome/fontawesome-svg-core';
 import {
   faBell,
   faCheck,
+  faChevronDown,
   faCode,
   faCog,
+  faEnvelopeOpen,
   faExternalLinkAlt,
   faFileAlt,
   faFolder,
@@ -40,4 +42,6 @@ export default () => {
   library.add(faPlus);
   library.add(faShareAlt);
   library.add(faTrash);
+  library.add(faEnvelopeOpen);
+  library.add(faChevronDown);
 };

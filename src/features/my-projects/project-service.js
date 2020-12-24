@@ -12,3 +12,10 @@ export const deleteProjectByRef = (projectRef) =>
     method: 'DELETE',
     headers: getCommonHeaders(),
   });
+
+export const shareProject = (payload) =>
+  fetch(`${baseURL}/api/v1/project/share`, {
+    method: 'PUT',
+    headers: getCommonHeaders(),
+    body: JSON.stringify(payload),
+  });
